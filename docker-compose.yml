@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: shiny
+    image: naturecons/sitesdata
+    ports:
+      - "3838:3838"
+    environment:
+      # environmental variables defined in ./.env
+      - WTW_NAT_DATA
+      - ESRI_API
+      - R_CONFIG_ACTIVE
+    volumes:
+      - "${WTW_NAT_DATA}:/WTW_NAT_DATA"
+      - "${ESRI_API}:/license/esri_maps_sdk.txt:ro"
+      
