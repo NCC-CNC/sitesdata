@@ -8,9 +8,26 @@ app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    # Your application UI logic
-    fluidPage(
-      golem::golem_welcome_page() # Remove this line to start building your UI
+    # HTML 
+    shiny::tags$head(
+      tags$link(rel="stylesheet", type="text/css", href="www/main-styles.css")
+    ),
+    bslib::page_sidebar(
+      id = "sitesdata",
+      title = "Sites Data",
+      #side bar
+      sidebar =  bslib::sidebar(
+        id = "sidebar-menu",
+        shiny::div(class="sidebar-menu__links",
+          shiny::actionLink(inputId = "link_home", label = "Home"),
+          shiny::actionLink(inputId = "link_spp", label = "Species"),
+          shiny::actionLink(inputId = "link_hab", label = "Habitat"),
+          shiny::actionLink(inputId = "link_climate", label = "Climate"),
+          shiny::actionLink(inputId = "link_eservice", label = "Ecosystem Services"),
+          shiny::actionLink(inputId = "link_threats", label = "Threats"),
+          shiny::actionLink(inputId = "link_wtw", label = "Where To Work")
+        )
+      )
     )
   )
 }
@@ -30,7 +47,7 @@ golem_add_external_resources <- function() {
   )
 
   tags$head(
-    favicon(),
+    # favicon(),
     bundle_resources(
       path = app_sys("app/www"),
       app_title = "sitesdata"
