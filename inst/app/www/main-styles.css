@@ -1,16 +1,16 @@
 
 /* Side-bar Menue */
-#sidebar-menu .sidebar-content{
+#left-sidebar-menu .sidebar-content{
   height: 93vh; /* Full viewport height */
 }
 
-.sidebar-menu__links {
+.lef-sidebar-menu__links {
   display: flex;
   flex-direction: column;
   flex-grow: 1
 }
 
-.sidebar-menu__links a {
+.left-sidebar-menu__links a {
   display: block;
   margin-bottom: 20px;
   color: black;
@@ -18,14 +18,42 @@
   padding: 8px
 }
 
-.sidebar-menu__links a:last-child {
-  margin-top: auto; /* Pushes last link to the bottom */
-  background-color: #e3f2fd; /* Subtle background highlight */
-  border-radius: 5px; /* Optional: rounded corners */
-  font-weight: bold; /* Slight emphasis */
+/*
+.left-sidebar-menu__links a:last-child {
+  margin-top: auto; 
+  background-color: #e3f2fd; 
+  border-radius: 5px; 
+  font-weight: bold; 
   text-align: center;
 }
 
-.sidebar-menu__links a:last-child:hover {
-  background-color: #e0e0e0; /* Slightly darker on hover */
+.left-sidebar-menu__links a:last-child:hover {
+  background-color: #e0e0e0; 
+}
+*/
+
+.main-content {
+  margin: 0 auto;
+  width: 85%;
+  min-width: 500px;
+}
+
+.card-title,
+.title-data-order{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.data-title,
+.data-order-checkbox{
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
 }

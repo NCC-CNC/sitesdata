@@ -10,24 +10,60 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # HTML 
     shiny::tags$head(
-      tags$link(rel="stylesheet", type="text/css", href="www/main-styles.css")
+      tags$link(rel="stylesheet", type="text/css", href="www/main-styles.css"),
+      # Add smooth scrolling behavior
+      tags$script(HTML("
+        document.addEventListener('DOMContentLoaded', function() {
+          document.querySelectorAll('.sidebar-menu__links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href').substring(1);
+              document.getElementById(targetId).scrollIntoView({
+                behavior: 'smooth'
+              });
+            });
+          });
+        });
+      "))
     ),
     bslib::page_sidebar(
       id = "sitesdata",
       title = "Sites Data",
-      #side bar
+      class = "p-0",
+      fillable = TRUE,
+      # Side bar
       sidebar =  bslib::sidebar(
-        id = "sidebar-menu",
-        shiny::div(class="sidebar-menu__links",
-          shiny::actionLink(inputId = "link_home", label = "Home"),
-          shiny::actionLink(inputId = "link_spp", label = "Species"),
-          shiny::actionLink(inputId = "link_hab", label = "Habitat"),
-          shiny::actionLink(inputId = "link_climate", label = "Climate"),
-          shiny::actionLink(inputId = "link_eservice", label = "Ecosystem Services"),
-          shiny::actionLink(inputId = "link_threats", label = "Threats"),
-          shiny::actionLink(inputId = "link_wtw", label = "Where To Work")
+        id = "left-sidebar-menu",
+        shiny::div(class = "left-sidebar-menu__links",
+          shiny::a(id="link_home", href="#home_section", "Top of Page"),
+          shiny::a(id="link_spp", href="#section_spp", "Species"),
+          shiny::a(id="link_hab", href="#section_hab", "Habitat"),
+          shiny::a(id="link_climate", href="#section_climate", "Climate"),
+          shiny::a(id="link_eservice", href="#section_eservice", "Ecosystem Services"),
+          shiny::a(id="link_cons", href="#section_parks", "Conservation"),
+          shiny::a(id="link_hfi", href="#section_pressures", "Pressures"),
+          shiny::a(id="link_hfi", href="#section_acknowledgments", "Details"),
+          shiny::a(id="link_hfi", href="#section_acknowledgments", "Acknowledgments"),
+          # shiny::actionLink(inputId = "link_wtw", label = "Where To Work")
         )
+      ),
+      
+      bslib::layout_sidebar(
+        sidebar = bslib::sidebar(
+          position = "right",
+          shiny::p("Data Order", class = "title-data-order")
+        ),
+        # Main content section
+        shiny::div(
+          shiny::hr(),
+          class = "main-content",
+          mod_page_home_ui("home"),
+          shiny::hr(),
+          mod_data_section_spp_ui("data_section_spp_1")
+        )
+        
       )
+      
     )
   )
 }
