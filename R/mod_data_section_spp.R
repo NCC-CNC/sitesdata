@@ -15,12 +15,12 @@ mod_data_section_spp_ui <- function(id) {
     bslib::layout_columns(
       col_widths = 12,
       bslib::card(
-        mod_data_card_ui("data_card_1", "SAR Critical Habitat"),
-        mod_data_card_ui("data_card_2", "SAR Range Map Extents"),
-        mod_data_card_ui("data_card_3", "AOH Amphibians"),
-        mod_data_card_ui("data_card_3", "AOH Birds"),
-        mod_data_card_ui("data_card_3", "AOH Mammals"),
-        mod_data_card_ui("data_card_3", "AOH Reptiles"),
+        mod_data_card_ui("data_card_ch", "SAR Critical Habitat"),
+        mod_data_card_ui("data_card_sar", "SAR Range Map Extents"),
+        mod_data_card_ui("data_card_amph", "AOH Amphibians"),
+        mod_data_card_ui("data_card_bird", "AOH Birds"),
+        mod_data_card_ui("data_card_mamm", "AOH Mammals"),
+        mod_data_card_ui("data_card_rept", "AOH Reptiles"),
       )
     )
   )

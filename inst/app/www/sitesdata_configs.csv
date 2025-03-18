@@ -1,0 +1,7 @@
+Theme,Layers,Path,Checkbox_Id,Label
+Species,ECCC_CH,,data_card_ch-checkbox,SAR Critical Habitat
+Species,ECCC_SAR,,data_card_sar-checkbox,SAR Range Map Extents
+Species,IUCN_AMPH,,data_card_amph-checkbox,AOH Amphibians
+Species,IUCN_BIRD,,data_card_bird-checkbox,AOH Birds
+Species,IUCN_MAMM,,data_card_mamm-checkbox,AOH Mammals
+Species,IUCN_REPT,,data_card_rept-checkbox,AOH Reptiles

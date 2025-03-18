@@ -51,7 +51,9 @@ app_ui <- function(request) {
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
           position = "right",
-          shiny::p("Data Order", class = "title-data-order")
+          width = "375px",
+          shiny::p("Data Order", class = "title-data-order"),
+          mod_data_order_ui("data_order_1")
         ),
         # Main content section
         shiny::div(
@@ -59,7 +61,7 @@ app_ui <- function(request) {
           class = "main-content",
           mod_page_home_ui("home"),
           shiny::hr(),
-          mod_data_section_spp_ui("data_section_spp_1")
+          mod_data_section_spp_ui("data_section_spp")
         )
         
       )
