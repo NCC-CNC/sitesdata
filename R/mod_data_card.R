@@ -42,10 +42,33 @@ mod_data_card_ui <- function(id, data_title) {
 #' data_card Server Functions
 #'
 #' @noRd 
-mod_data_card_server <- function(id){
+mod_data_card_server <- function(id, order_manager, product){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
- 
+    
+
+    shiny::observeEvent(order_manager(), {
+      
+      # Get TRUE orders
+      virtual_select <- order_manager() |>
+        dplyr::filter(Product == product) |>
+        dplyr::pull(Order)
+      
+      # update virtual selection:
+      shiny::updateCheckboxInput(
+        inputId = "checkbox",
+        value = virtual_select
+      )
+      
+    }, ignoreInit = TRUE)
+    
+    
+    shiny::observeEvent(input$checkbox, {
+      current_data <- order_manager()  # Retrieve the current tibble
+      current_data$Order[current_data$Product == product] <- input$checkbox  
+      order_manager(current_data)  # Save the modified tibble back to reactiveVal
+    }, ignoreInit = TRUE)
+    
   })
 }
     

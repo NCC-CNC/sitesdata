@@ -17,10 +17,7 @@ mod_data_order_ui <- function(id) {
         "Species" = c(
           "SAR Critical Habitat", "SAR Range Map Extents", 
           "AOH Amphibians", "AOH Birds", "AOH Mammals", "AOH Reptiles"
-          ),
-        "Habitat" = c(
-          "Grassland", "Forest", "Wetlands"
-        )
+          )
       ),
       showValueAsTags = TRUE,
       search = FALSE,
@@ -33,7 +30,7 @@ mod_data_order_ui <- function(id) {
     placeholder = "Dan"
   ),
   shiny::textInput(
-    inputId = ns("last"),
+    inputId = ns("lastname"),
     label = "Last Name",
     placeholder = "Wismer"
   ),
@@ -53,10 +50,31 @@ mod_data_order_ui <- function(id) {
 #' data_order Server Functions
 #'
 #' @noRd 
-mod_data_order_server <- function(id){
+mod_data_order_server <- function(id, order_manager){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
- 
+    
+    
+    observeEvent(input$data_order, {
+      current_data <- order_manager()  # Retrieve the current tibble
+      current_data <- dplyr::mutate(current_data, Order = Product %in% input$data_order)  
+      order_manager(current_data) 
+    }, ignoreInit = TRUE, ignoreNULL = FALSE)
+    
+    observeEvent(order_manager(), {
+      
+      virtual_select <- order_manager() |>
+        dplyr::filter(Order == TRUE) |>
+        dplyr::pull(Product)
+      
+      # update virtual selection:
+      shinyWidgets::updateVirtualSelect(
+        inputId = "data_order",
+        selected = virtual_select
+      )
+      
+    }, ignoreInit = TRUE)
+    
   })
 }
     
