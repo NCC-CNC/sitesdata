@@ -57,3 +57,39 @@
   font-weight: bold;
   color: #333;
 }
+
+.data-order-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-block: 0px;
+}
+
+.vscomp-dropbox-container {
+  z-index: 1000 !important;
+}
+
+.shp-input-row {
+  margin-bottom: -15px !important;
+}
+
+.shp-input .form-group.shiny-input-container * {
+    padding: 0px !important;
+    box-sizing: border-box;
+}
+.shp-input .form-group.shiny-input-container .btn {
+  padding: 3px !important;
+}
+
+.shp-input .form-group.shiny-input-container .form-control {
+  padding-left: 3px !important;
+}
+
+#erase_shp {
+  padding: 0px;
+}
+
+#user_data_1-firstname-label,
+#user_data_1-lastname-label,
+#user_data_1-email-label{
+  font-size: 0.9rem;
+}

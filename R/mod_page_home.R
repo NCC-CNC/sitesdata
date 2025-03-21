@@ -15,7 +15,7 @@ mod_page_home_ui <- function(id) {
       col_widths = 12,
       bslib::card(
         id = "home_card",
-        shiny::p("Sites Data Portal", class = "card-title"),
+        shiny::p("Sites Data", class = "card-title"),
         shiny::p(shinipsum::random_text(nwords = 50), class = "card-description")
       )
     ),

@@ -16,4 +16,6 @@ app_server <- function(input, output, session) {
   mod_data_card_server("data_card_mamm", order_manager, product = "AOH Mammals")
   mod_data_card_server("data_card_rept", order_manager, product = "AOH Reptiles")
   mod_data_order_server("data_order_1", order_manager)
+  
+  mod_map_server("map_1")
 }

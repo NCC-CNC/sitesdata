@@ -12,7 +12,7 @@ mod_data_order_ui <- function(id) {
   tagList(
     shinyWidgets::virtualSelectInput(
       inputId = ns("data_order"),
-      label = NULL,
+      label = shiny::p(bsicons::bs_icon("cart4", size = "1.2em"), "Data Order", class = "data-order-label"),
       choices = list(
         "Species" = c(
           "SAR Critical Habitat", "SAR Range Map Extents", 
@@ -22,28 +22,7 @@ mod_data_order_ui <- function(id) {
       showValueAsTags = TRUE,
       search = FALSE,
       multiple = TRUE
-  ),
-  
-  shiny::textInput(
-    inputId = ns("firstname"),
-    label = "First Name",
-    placeholder = "Dan"
-  ),
-  shiny::textInput(
-    inputId = ns("lastname"),
-    label = "Last Name",
-    placeholder = "Wismer"
-  ),
-  shiny::textInput(
-    inputId = ns("email"),
-    label = "Email",
-    placeholder = "Dan.Wismer@natureconservancy.ca"
-  ),
-  shiny::actionButton(
-    inputId = ns("submit"),
-    label = "Submit"
   )
-  
  )
 }
     

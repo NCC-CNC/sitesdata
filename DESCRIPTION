@@ -10,9 +10,11 @@ Description: What the package does (one paragraph).
 License: What license is it under?
 Imports: 
     config,
+    bsicons (>= 0.1.2),
     bslib (>= 0.9.0),
     dplyr (>= 1.1.4),
     golem (>= 0.5.1),
+    mapgl (>= 0.2.1),
     shiny (>= 1.10.0),
     shinipsum (>= 0.1.1),
     shinyWidgets (>= 0.9.0),
