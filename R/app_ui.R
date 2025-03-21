@@ -8,6 +8,7 @@ app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
+    shinyjs::useShinyjs(),
     # HTML 
     shiny::tags$head(
       tags$link(rel="stylesheet", type="text/css", href="www/main-styles.css"),

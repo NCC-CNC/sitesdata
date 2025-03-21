@@ -13,6 +13,15 @@ mod_user_data_ui <- function(id) {
     
     bslib::navset_card_underline(
       bslib::nav_panel(
+        title =  bslib::tooltip(
+          shiny::span(
+          bsicons::bs_icon("info-circle"),
+          "Map"
+          ),
+          "tooltip message",
+          placement = "left"
+        ), mod_map_ui("map_1")),
+      bslib::nav_panel(
         title = "Name", 
         shiny::textInput(
           inputId = ns("firstname"),
@@ -33,8 +42,14 @@ mod_user_data_ui <- function(id) {
           placeholder = "Dan.Wismer@natureconservancy.ca"
         )
       ),
-      bslib::nav_panel(title = "Affiliation", p("Affiliation")),
-      bslib::nav_panel(title = "Map", mod_map_ui("map_1"))
+      bslib::nav_panel(
+        title = "Affiliation", 
+       shiny::radioButtons(
+       inputId = ns("affiliation"),
+       label = NULL,
+       selected = character(0),
+       choices = c("Nature Conservancy of Canada", "Other Conservation NGO", "Government", "Acemedimc", "Industry"),
+     ))
     )
   )
 }
