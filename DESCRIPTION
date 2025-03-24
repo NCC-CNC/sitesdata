@@ -15,7 +15,7 @@ Imports:
     dplyr (>= 1.1.4),
     golem (>= 0.5.1),
     mapgl (>= 0.2.1),
-    sf (>= 1.0-19),
+    sf (>= 1.0.19),
     shiny (>= 1.10.0),
     shinyjs (>= 2.1.0),
     shinipsum (>= 0.1.1),
