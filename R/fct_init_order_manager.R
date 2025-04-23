@@ -5,15 +5,13 @@
 #' @return The return value, if any, from executing the function.
 #'
 #' @noRd
-init_order_manager <- function() {
+init_order_manager <- function(dim_products) {
   
-  products <- c(
-    "SAR Critical Habitat", "SAR Range Map Extents", 
-    "AOH Amphibians", "AOH Birds", "AOH Mammals", "AOH Reptiles"
-  )
+  app_names <- dim_products |>
+    dplyr::pull(app_name)
   
   tibble::tibble(
-    `Product` = products,
+    `Product` = app_names,
     `Order` = rep(FALSE, length(products)),
     `Path` = rep("", length(products)),
   )

@@ -7,17 +7,19 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
-mod_data_order_ui <- function(id) {
+mod_data_order_ui <- function(id, dim_product) {
   ns <- NS(id)
+  
+  product_species <- dim_product |>
+    dplyr::filter(category == "species") |>
+    dplyr::pull(app_name)
+  
   tagList(
     shinyWidgets::virtualSelectInput(
       inputId = ns("data_order"),
       label = shiny::p(bsicons::bs_icon("cart4", size = "1.2em"), "Data Order", class = "data-order-label"),
       choices = list(
-        "Species" = c(
-          "SAR Critical Habitat", "SAR Range Map Extents", 
-          "AOH Amphibians", "AOH Birds", "AOH Mammals", "AOH Reptiles"
-          )
+        "Species" = product_species
       ),
       showValueAsTags = TRUE,
       search = FALSE,

@@ -9,8 +9,10 @@ app_server <- function(input, output, session) {
   # set upload size to 100mb max
   options(shiny.maxRequestSize = 100 * 1024^2)
   
+  # product table
+  dim_product <- read.csv(file.path("inst", "app", "csv", "dim_product.csv"))
   # order manager
-  order_manager <- shiny::reactiveVal(init_order_manager())
+  order_manager <- shiny::reactiveVal(init_order_manager(dim_product))
   
   mod_data_card_server("data_card_ch", order_manager, product = "SAR Critical Habitat")
   mod_data_card_server("data_card_sar", order_manager, product = "SAR Range Map Extents")

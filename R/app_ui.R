@@ -54,7 +54,7 @@ app_ui <- function(request) {
           position = "right",
           width = "375px",
           # shiny::p("Data Order", class = "title-data-order"),
-          mod_data_order_ui("data_order_1"),
+          mod_data_order_ui("data_order_1", dim_product),
           mod_user_data_ui("user_data_1"),
           mod_submit_ui("submit_1")
         ),
