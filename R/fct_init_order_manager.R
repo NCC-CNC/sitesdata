@@ -12,7 +12,6 @@ init_order_manager <- function(dim_products) {
   
   tibble::tibble(
     `Product` = app_names,
-    `Order` = rep(FALSE, length(products)),
-    `Path` = rep("", length(products)),
+    `Order` = rep(FALSE, length(products))
   )
 }
