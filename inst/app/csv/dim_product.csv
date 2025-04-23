@@ -1,0 +1,17 @@
+﻿product_id,short_name,app_name,category,type,unit
+1,ECCC_CH,SAR Critical Habitat,species,theme,ha
+2,ECCC_SAR,SAR Range Map Extents,species,theme,ha
+3,IUCN_AMPH,AOH Amphibians,species,theme,km2
+4,IUCN_BIRD,AOH Birds,species,theme,km2
+5,IUCN_MAMM,AOH Mammals,species,theme,km2
+6,IUCN_REPT,AOH Reptiles,species,theme,ha
+7,FOREST,Forest,habitat,theme,ha
+8,GRASSLAND,Grassland,habitat,theme,ha
+9,LAKES,Lakes,habitat,theme,ha
+10,RIVERS,Rivers,habitat,theme,km
+11,SHORE,Shorline,habitat,theme,km
+12,WETLAND,Wetland,habitat,theme,ha
+13,CLIMATE_C,Climate Centrality,climate,weight,index
+14,CLIMATE_E,Extreme Heat Events,climate,weight,index
+15,CLIMATE_R,Climate Refugia,climate,weight,index
+16,REC,Recreation,ecosystem services,weight,index
