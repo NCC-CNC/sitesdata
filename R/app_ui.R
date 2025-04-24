@@ -34,6 +34,7 @@ app_ui <- function(request) {
       fillable = TRUE,
       # Side bar
       sidebar =  bslib::sidebar(
+        width = "225px",
         id = "left-sidebar-menu",
         shiny::div(class = "left-sidebar-menu__links",
           shiny::a(id="link_home", href="#home_section", "Top of Page"),
@@ -52,7 +53,7 @@ app_ui <- function(request) {
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
           position = "right",
-          width = "375px",
+          width = "500px",
           # shiny::p("Data Order", class = "title-data-order"),
           mod_data_order_ui("data_order_1", dim_product),
           mod_user_data_ui("user_data_1"),
