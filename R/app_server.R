@@ -34,5 +34,5 @@ app_server <- function(input, output, session) {
   mod_user_data_server("user_data_1", user_data_manager)
   
   # submit
-  mod_submit_server("submit_1", order_manager, user_data_manager, geojson_aoi)
+  mod_submit_server("submit_1", order_manager, user_data_manager, geojson_aoi, dim_product)
 }

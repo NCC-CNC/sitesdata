@@ -17,7 +17,7 @@ mod_submit_ui <- function(id) {
 #' submit Server Functions
 #'
 #' @noRd 
-mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi){
+mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi, dim_product){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     shiny::observeEvent(input$submit, {
@@ -38,7 +38,7 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi)
         DBI::dbWriteTable(con, "dim_customer", user_data_manager(), append = TRUE, row.names = FALSE)
       }
       
-      # DIM_ORDER ----
+      # FACT_ORDER ----
       ## get customer_id
       customer_id <- DBI::dbGetQuery(con, "
       SELECT customer_id FROM dim_customer WHERE email = ?
@@ -52,6 +52,24 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi)
       VALUES (?, ?, ?);
       ", params = list(as.numeric(customer_id), UTC, geojson_aoi())
       )
+      
+      # FACT_ORDER_ITEMS ----
+      ## get order_id
+      order_id <- DBI::dbGetQuery(con, "
+      SELECT order_id FROM fact_order WHERE order_date = ?
+      ", params = list(UTC)
+      )
+      
+      ## get products
+      browser()
+      product_order <- order_manager() |>
+        dplyr::filter(Order == TRUE) |>
+        dplyr::mutate(order_id = as.numeric(order_id)) |>
+        dplyr::left_join(dim_product, by = c("Product" = "app_name")) |>
+        dplyr::select(order_id, product_id, short_name)
+      ## insert to order items
+      DBI::dbAppendTable(con, "fact_order_items", product_order)
+      
     })
 })}
     
