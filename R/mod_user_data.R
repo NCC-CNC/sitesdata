@@ -57,9 +57,38 @@ mod_user_data_ui <- function(id) {
 #' user_data Server Functions
 #'
 #' @noRd 
-mod_user_data_server <- function(id){
+mod_user_data_server <- function(id, user_data_manager){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
+    
+    # First name
+    observeEvent(input$firstname, {
+      current_data <- user_data_manager()  # Retrieve the current tibble
+      current_data <- dplyr::mutate(current_data, first_name = input$firstname)  
+      user_data_manager(current_data) 
+    }, ignoreInit = TRUE, ignoreNULL = FALSE)
+    
+    # Last name
+    observeEvent(input$lastname, {
+      current_data <- user_data_manager()  # Retrieve the current tibble
+      current_data <- dplyr::mutate(current_data, last_name = input$lastname)  
+      user_data_manager(current_data) 
+    }, ignoreInit = TRUE, ignoreNULL = FALSE)
+    
+    # Email
+    observeEvent(input$email, {
+      current_data <- user_data_manager()  # Retrieve the current tibble
+      current_data <- dplyr::mutate(current_data, first_name = input$email)  
+      user_data_manager(current_data) 
+    }, ignoreInit = TRUE, ignoreNULL = FALSE)
+    
+    # Affiliation
+    observeEvent(input$affiliation, {
+      browser()
+      current_data <- user_data_manager()  # Retrieve the current tibble
+      current_data <- dplyr::mutate(current_data, affiliation = input$affiliation)  
+      user_data_manager(current_data) 
+    }, ignoreInit = TRUE, ignoreNULL = FALSE)    
  
   })
 }
