@@ -31,7 +31,7 @@ mod_map_ui <- function(id) {
 #' map Server Functions
 #'
 #' @noRd 
-mod_map_server <- function(id){
+mod_map_server <- function(id, geojson_aoi){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     
@@ -66,6 +66,10 @@ mod_map_server <- function(id){
              fill_color = "#AAA",
              fill_opacity = 0.7
            )
+         
+         # convert to geojson for order
+         geojson_text <- sf::st_as_text(sf::st_geometry(shp()))
+         geojson_aoi(geojson_text)
       }
     })
     
@@ -79,7 +83,6 @@ mod_map_server <- function(id){
         mapgl::clear_layer("shp_user")
     })    
     
- 
   })
 }
     

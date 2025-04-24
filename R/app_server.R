@@ -15,6 +15,8 @@ app_server <- function(input, output, session) {
   order_manager <- shiny::reactiveVal(init_order_manager(dim_product))
   # user data 
   user_data_manager <- shiny::reactiveVal(init_user_data())
+  # geojson aoi
+  geojson_aoi <- shiny::reactiveVal(NA_character_)
   
   # product cards
   mod_data_card_server("data_card_ch", order_manager, product = "SAR Critical Habitat")
@@ -25,12 +27,12 @@ app_server <- function(input, output, session) {
   mod_data_card_server("data_card_rept", order_manager, product = "AOH Reptiles")
   mod_data_order_server("data_order_1", order_manager)
   
-  # map
-  mod_map_server("map_1")
+  # map and user aoi
+  mod_map_server("map_1", geojson_aoi)
   
   # user data
   mod_user_data_server("user_data_1", user_data_manager)
   
   # submit
-  mod_submit_server("submit_1", order_manager, user_data_manager)
+  mod_submit_server("submit_1", order_manager, user_data_manager, geojson_aoi)
 }
