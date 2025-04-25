@@ -8,7 +8,7 @@
 email_exists <- function(con, email) {
   result <- DBI::dbGetQuery(con, "
     SELECT EXISTS (
-      SELECT 1 FROM dim_customer WHERE email = ?
+      SELECT 1 FROM Customer WHERE email = ?
     ) AS email_found
   ", params = list(email))
   

@@ -17,7 +17,7 @@ mod_submit_ui <- function(id) {
 #' submit Server Functions
 #'
 #' @noRd 
-mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi, dim_product){
+mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi, product_df){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     shiny::observeEvent(input$submit, {
@@ -25,50 +25,47 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
       browser()
       
       # connect to db
-      test_db_path <- "C:/Github/sitesdata-backend/test-db.sqlite"
-      con <- DBI::dbConnect(RSQLite::SQLite(), test_db_path)
+      transaction_db <- "C:/Github/sitesdata-backend/TEST_TransactionDB.sqlite"
+      con <- DBI::dbConnect(RSQLite::SQLite(), transaction_db)
       
-      # DIM_CUSTOMER ----
+      # CUSTOMER ----
       ## check if email exists
       if (email_exists(con, user_data_manager()$email)) {
         ### update customer data
         update_customer(con, user_data_manager) # fct_update_customer.R
       } else {
         ### insert new customer
-        DBI::dbWriteTable(con, "dim_customer", user_data_manager(), append = TRUE, row.names = FALSE)
+        DBI::dbWriteTable(con, "Customer", user_data_manager(), append = TRUE, row.names = FALSE)
       }
       
-      # FACT_ORDER ----
+      # Order Tbl ----
       ## get customer_id
       customer_id <- DBI::dbGetQuery(con, "
-      SELECT customer_id FROM dim_customer WHERE email = ?
+      SELECT customer_id FROM Custmer WHERE email = ?
       ", params = list(user_data_manager()$email)
       )
-      
       ## insert order
       UTC <- as.character(lubridate::now(tzone = "UTC"))
       DBI::dbExecute(con, "
-      INSERT INTO fact_order (customer_id, order_date, geojson_aoi)
+      INSERT INTO Order (customer_id, order_date, geojson_aoi)
       VALUES (?, ?, ?);
       ", params = list(as.numeric(customer_id), UTC, geojson_aoi())
       )
       
-      # FACT_ORDER_ITEMS ----
+      # OrderDetails Tbl ----
       ## get order_id
       order_id <- DBI::dbGetQuery(con, "
-      SELECT order_id FROM fact_order WHERE order_date = ?
+      SELECT order_id FROM Order WHERE order_date = ?
       ", params = list(UTC)
       )
-      
-      ## get products
-      browser()
-      product_order <- order_manager() |>
+      ## get order details (products user selected)
+      order_details <- order_manager() |>
         dplyr::filter(Order == TRUE) |>
         dplyr::mutate(order_id = as.numeric(order_id)) |>
-        dplyr::left_join(dim_product, by = c("Product" = "app_name")) |>
+        dplyr::left_join(product_df, by = c("Product" = "app_name")) |>
         dplyr::select(order_id, product_id, short_name)
       ## insert to order items
-      DBI::dbAppendTable(con, "fact_order_items", product_order)
+      DBI::dbAppendTable(con, "OrderDetails", order_details)
       
     })
 })}

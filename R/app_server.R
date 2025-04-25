@@ -10,9 +10,9 @@ app_server <- function(input, output, session) {
   options(shiny.maxRequestSize = 100 * 1024^2)
   
   # product table
-  dim_product <- read.csv(file.path("inst", "app", "csv", "dim_product.csv"))
+  product_df <- read.csv(file.path("inst", "app", "csv", "product.csv"))
   # order manager
-  order_manager <- shiny::reactiveVal(init_order_manager(dim_product))
+  order_manager <- shiny::reactiveVal(init_order_manager(product_df))
   # user data 
   user_data_manager <- shiny::reactiveVal(init_user_data())
   # geojson aoi
@@ -25,6 +25,8 @@ app_server <- function(input, output, session) {
   mod_data_card_server("data_card_bird", order_manager, product = "AOH Birds")
   mod_data_card_server("data_card_mamm", order_manager, product = "AOH Mammals")
   mod_data_card_server("data_card_rept", order_manager, product = "AOH Reptiles")
+  
+  # data order
   mod_data_order_server("data_order_1", order_manager)
   
   # map and user aoi
@@ -34,5 +36,5 @@ app_server <- function(input, output, session) {
   mod_user_data_server("user_data_1", user_data_manager)
   
   # submit
-  mod_submit_server("submit_1", order_manager, user_data_manager, geojson_aoi, dim_product)
+  mod_submit_server("submit_1", order_manager, user_data_manager, geojson_aoi, product_df)
 }

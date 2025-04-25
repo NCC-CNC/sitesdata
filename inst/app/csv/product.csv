@@ -1,17 +1,17 @@
-﻿product_id,short_name,app_name
-1,ECCC_CH,SAR Critical Habitat
-2,ECCC_SAR,SAR Range Map Extents
-3,IUCN_AMPH,AOH Amphibians
-4,IUCN_BIRD,AOH Birds
-5,IUCN_MAMM,AOH Mammals
-6,IUCN_REPT,AOH Reptiles
-7,FOREST,Forest
-8,GRASSLAND,Grassland
-9,LAKES,Lakes
-10,RIVERS,Rivers
-11,SHORE,Shorline
-12,WETLAND,Wetland
-13,CLIMATE_C,Climate Centrality
-14,CLIMATE_E,Extreme Heat Events
-15,CLIMATE_R,Climate Refugia
-16,REC,Recreation
+﻿product_id,short_name,app_name,category
+1,ECCC_CH,SAR Critical Habitat,species
+2,ECCC_SAR,SAR Range Map Extents,species
+3,IUCN_AMPH,AOH Amphibians,species
+4,IUCN_BIRD,AOH Birds,species
+5,IUCN_MAMM,AOH Mammals,species
+6,IUCN_REPT,AOH Reptiles,species
+7,FOREST,Forest,habitat
+8,GRASSLAND,Grassland,habitat
+9,LAKES,Lakes,habitat
+10,RIVERS,Rivers,habitat
+11,SHORE,Shorline,habitat
+12,WETLAND,Wetland,habitat
+13,CLIMATE_C,Climate Centrality,climate
+14,CLIMATE_E,Extreme Heat Events,climate
+15,CLIMATE_R,Climate Refugia,climate
+16,REC,Recreation,ecosystem services

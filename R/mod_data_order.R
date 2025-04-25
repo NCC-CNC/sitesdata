@@ -7,10 +7,10 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
-mod_data_order_ui <- function(id, dim_product) {
+mod_data_order_ui <- function(id, product_df) {
   ns <- NS(id)
   
-  product_species <- dim_product |>
+  product_species <- product_df |>
     dplyr::filter(category == "species") |>
     dplyr::pull(app_name)
   
