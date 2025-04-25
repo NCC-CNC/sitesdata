@@ -5,7 +5,7 @@
 \title{Run the Shiny Application}
 \usage{
 run_app(
-  onStart = NULL,
+  onStart = purrr::partial(eval, expr = app_global, envir = globalenv()),
   options = list(),
   enableBookmarking = NULL,
   uiPattern = "/",
