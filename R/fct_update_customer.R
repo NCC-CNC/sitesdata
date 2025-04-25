@@ -7,7 +7,7 @@
 #' @noRd
 update_customer <- function(con, user_data_manager) {
   DBI::dbExecute(con, "
-    UPDATE dim_customer
+    UPDATE Customers
     SET 
       first_name = ?,
       last_name = ?,

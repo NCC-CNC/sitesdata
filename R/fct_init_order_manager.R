@@ -12,6 +12,6 @@ init_order_manager <- function(product_df) {
   
   tibble::tibble(
     `Product` = app_names,
-    `Order` = rep(FALSE, length(products))
+    `Order` = rep(FALSE, nrow(product_df))
   )
 }

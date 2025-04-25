@@ -8,7 +8,9 @@
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options
 run_app <- function(
-  onStart = NULL,
+  onStart = purrr::partial(
+    eval, expr = app_global, envir = globalenv()
+  ),
   options = list(),
   enableBookmarking = NULL,
   uiPattern = "/",

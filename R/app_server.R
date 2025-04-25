@@ -9,8 +9,6 @@ app_server <- function(input, output, session) {
   # set upload size to 100mb max
   options(shiny.maxRequestSize = 100 * 1024^2)
   
-  # product table
-  product_df <- read.csv(file.path("inst", "app", "csv", "product.csv"))
   # order manager
   order_manager <- shiny::reactiveVal(init_order_manager(product_df))
   # user data 

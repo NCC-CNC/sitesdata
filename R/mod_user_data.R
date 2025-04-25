@@ -78,7 +78,7 @@ mod_user_data_server <- function(id, user_data_manager){
     # Email
     observeEvent(input$email, {
       current_data <- user_data_manager()  # Retrieve the current tibble
-      current_data <- dplyr::mutate(current_data, email = input$email)  
+      current_data <- dplyr::mutate(current_data, email = tolower(input$email))  
       user_data_manager(current_data) 
     }, ignoreInit = TRUE, ignoreNULL = FALSE)
     

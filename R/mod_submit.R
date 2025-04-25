@@ -28,6 +28,11 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
       transaction_db <- "C:/Github/sitesdata-backend/TEST_TransactionDB.sqlite"
       con <- DBI::dbConnect(RSQLite::SQLite(), transaction_db)
       
+      DBI::dbReadTable(con, "Orders")
+      DBI::dbReadTable(con, "OrderDetails")
+      DBI::dbReadTable(con, "Customers")
+      DBI::dbReadTable(con, "Product")
+      
       # CUSTOMER ----
       ## check if email exists
       if (email_exists(con, user_data_manager()$email)) {
@@ -35,19 +40,19 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
         update_customer(con, user_data_manager) # fct_update_customer.R
       } else {
         ### insert new customer
-        DBI::dbWriteTable(con, "Customer", user_data_manager(), append = TRUE, row.names = FALSE)
+        DBI::dbWriteTable(con, "Customers", user_data_manager(), append = TRUE, row.names = FALSE)
       }
       
       # Order Tbl ----
       ## get customer_id
       customer_id <- DBI::dbGetQuery(con, "
-      SELECT customer_id FROM Custmer WHERE email = ?
+      SELECT customer_id FROM Customers WHERE email = ?
       ", params = list(user_data_manager()$email)
       )
       ## insert order
       UTC <- as.character(lubridate::now(tzone = "UTC"))
       DBI::dbExecute(con, "
-      INSERT INTO Order (customer_id, order_date, geojson_aoi)
+      INSERT INTO Orders (customer_id, order_date, geojson_aoi)
       VALUES (?, ?, ?);
       ", params = list(as.numeric(customer_id), UTC, geojson_aoi())
       )
@@ -55,7 +60,7 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
       # OrderDetails Tbl ----
       ## get order_id
       order_id <- DBI::dbGetQuery(con, "
-      SELECT order_id FROM Order WHERE order_date = ?
+      SELECT order_id FROM Orders WHERE order_date = ?
       ", params = list(UTC)
       )
       ## get order details (products user selected)
@@ -63,9 +68,12 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
         dplyr::filter(Order == TRUE) |>
         dplyr::mutate(order_id = as.numeric(order_id)) |>
         dplyr::left_join(product_df, by = c("Product" = "app_name")) |>
-        dplyr::select(order_id, product_id, short_name)
+        dplyr::select(order_id, product_id)
       ## insert to order items
       DBI::dbAppendTable(con, "OrderDetails", order_details)
+      
+      # Disconnect from DB
+      DBI::dbDisconnect(con)
       
     })
 })}
