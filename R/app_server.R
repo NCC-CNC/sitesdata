@@ -14,7 +14,7 @@ app_server <- function(input, output, session) {
   # user data 
   user_data_manager <- shiny::reactiveVal(init_user_data())
   # geojson aoi
-  geojson_aoi <- shiny::reactiveVal(NA_character_)
+  geojson_aoi <- shiny::reactiveVal(NULL)
   
   # product cards
   mod_data_card_server("data_card_ch", order_manager, product = "SAR Critical Habitat")
@@ -35,4 +35,21 @@ app_server <- function(input, output, session) {
   
   # submit
   mod_submit_server("submit_1", order_manager, user_data_manager, geojson_aoi, product_df)
+  
+  # enable/disable submit
+  observe({
+    if(
+      # user data
+      all(!is.na(user_data_manager()) & user_data_manager() != "") &&
+      # order manager
+      any(order_manager()$Order) &&
+      # geojson_aoi
+      !is.null(geojson_aoi())
+    ) {
+      shinyjs::enable("submit_1-submit")
+    } else {
+      shinyjs::disable("submit_1-submit")
+    }
+  })
+  
 }

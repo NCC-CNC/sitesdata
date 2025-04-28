@@ -22,7 +22,19 @@ mod_user_data_ui <- function(id) {
           placement = "left"
         ), mod_map_ui("map_1")),
       bslib::nav_panel(
-        title = "Name", 
+        title = "Order Details",
+        shiny::selectInput(
+          inputId = ns("affiliation"),
+          label = "Affiliation",
+          selected = character(0),
+          choices = c(
+            "",
+            "Nature Conservancy of Canada", 
+            "Other Conservation NGO", 
+            "Government", 
+            "Acemedimc", 
+            "Industry"),
+        ),         
         shiny::textInput(
           inputId = ns("firstname"),
           label = "First Name",
@@ -32,24 +44,13 @@ mod_user_data_ui <- function(id) {
           inputId = ns("lastname"),
           label = "Last Name",
           placeholder = "Wismer"
-        )
-      ),
-      bslib::nav_panel(
-        title = "Email",
+        ),
         shiny::textInput(
           inputId = ns("email"),
           label = "Email",
           placeholder = "Dan.Wismer@natureconservancy.ca"
         )
-      ),
-      bslib::nav_panel(
-        title = "Affiliation", 
-       shiny::radioButtons(
-       inputId = ns("affiliation"),
-       label = NULL,
-       selected = character(0),
-       choices = c("Nature Conservancy of Canada", "Other Conservation NGO", "Government", "Acemedimc", "Industry"),
-     ))
+      )
     )
   )
 }

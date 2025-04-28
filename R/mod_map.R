@@ -77,6 +77,9 @@ mod_map_server <- function(id, geojson_aoi){
     shiny::observeEvent(input$erase_shp, {
       # reset file input input
       shinyjs::reset("map_1-shp", asis = TRUE)
+      # rest geojoson_aoi
+      geojson_aoi(NULL)
+      
       # clear layer
       map_proxy <- mapgl::maplibre_proxy("map_1-map")
       map_proxy |>
