@@ -12,6 +12,7 @@ mod_user_data_ui <- function(id) {
   tagList(
     
     bslib::navset_card_underline(
+      full_screen = TRUE,
       bslib::nav_panel(
         title =  bslib::tooltip(
           shiny::span(

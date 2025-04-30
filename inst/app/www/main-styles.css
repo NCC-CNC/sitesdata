@@ -109,3 +109,20 @@
   font-size: 0.9rem;
   margin-top: -10px;
 }
+
+.bslib-card[data-full-screen="true"] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 40vw !important; /* or fixed: e.g., 600px */
+  height: 80vh !important;
+  max-height: 90vh !important; /* scroll if content is long */
+  
+  z-index: 1070;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
