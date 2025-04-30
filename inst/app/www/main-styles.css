@@ -93,3 +93,19 @@
 #user_data_1-email-label{
   font-size: 0.9rem;
 }
+
+.order-details > div { 
+  gap: 0px;
+}
+
+.order-details .control-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+
+.shp-required {
+  color: #c10000;
+  font-size: 0.9rem;
+  margin-top: -10px;
+}

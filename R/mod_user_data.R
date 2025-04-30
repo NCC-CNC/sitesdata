@@ -23,6 +23,7 @@ mod_user_data_ui <- function(id) {
         ), mod_map_ui("map_1")),
       bslib::nav_panel(
         title = "Order Details",
+        class = "order-details",
         shiny::selectInput(
           inputId = ns("affiliation"),
           label = "Affiliation",
@@ -49,7 +50,12 @@ mod_user_data_ui <- function(id) {
           inputId = ns("email"),
           label = "Email",
           placeholder = "Dan.Wismer@natureconservancy.ca"
-        )
+        ),
+        shiny::textInput(
+          inputId = ns("confirm_email"),
+          label = "Confirm Email",
+          placeholder = "Dan.Wismer@natureconservancy.ca"
+        )        
       )
     )
   )
@@ -61,6 +67,19 @@ mod_user_data_ui <- function(id) {
 mod_user_data_server <- function(id, user_data_manager){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
+    
+    # Input validation
+    observe({ 
+      iv <- shinyvalidate::InputValidator$new()
+      iv$add_rule("affiliation", shinyvalidate::sv_required())
+      iv$add_rule("firstname", shinyvalidate::sv_required())
+      iv$add_rule("lastname", shinyvalidate::sv_required())
+      iv$add_rule("email", shinyvalidate::sv_required())
+      iv$add_rule("email", shinyvalidate::sv_email())
+      iv$add_rule("confirm_email", shinyvalidate::sv_required())
+      iv$add_rule("confirm_email", shinyvalidate::sv_equal(input$email, message = "Emails must match"))
+      iv$enable()
+    })
     
     # First name
     observeEvent(input$firstname, {

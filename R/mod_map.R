@@ -10,20 +10,28 @@
 mod_map_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    mapgl::maplibreOutput(ns("map"), height = "250px"),
+    mapgl::maplibreOutput(ns("map"), height = "275px"),
     bslib::layout_columns(
       class = "shp-input-row",
       col_widths = c(10,2),
       shiny::p(bsicons::bs_icon("upload", fill = "primary"), "Upload Polygon"),
+      bslib::tooltip(
       shiny::actionButton(ns("erase_shp"), bsicons::bs_icon("eraser", fill = "primary")),
+      "Clear polygon."
+      )
     ),
     shiny::div(class = "shp-input",
+    bslib::tooltip(
     shiny::fileInput(
       inputId = ns("shp"), 
       label = NULL, 
       multiple = TRUE,
       accept = c(".shp", ".shx", ".dbf", ".prj", ".sbn", ".sbx", ".cpg")
-      )
+      ),
+     ".shp, .shx, .dbf, and .prj files are required."
+     ),
+    shiny::textOutput(ns("shp_display_name"), inline = TRUE),
+    shiny::div(class = "shp-required", "Required")
     )
   )
 }
@@ -34,6 +42,11 @@ mod_map_ui <- function(id) {
 mod_map_server <- function(id, geojson_aoi){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
+    
+    # set validation ui
+    shinyjs::runjs(
+      "document.querySelector('.form-control').classList.add('is-invalid');"
+    )
     
     # init map
     output$map <- mapgl::renderMaplibre({
@@ -70,20 +83,41 @@ mod_map_server <- function(id, geojson_aoi){
          # convert to geojson for order
          geojson_text <- sf::st_as_text(sf::st_geometry(shp()))
          geojson_aoi(geojson_text)
+         
+         # set validation ui
+         shinyjs::runjs(
+           "document.querySelector('.form-control').classList.remove('is-invalid');
+            document.querySelector('.shp-required').textContent = '';"
+         )
       }
+    })
+    
+    # display shapefile name
+    shiny::observeEvent(shp_name(), {
+      output$shp_display_name <- shiny::renderText({
+        shp_name()
+      })
     })
     
     # clear layer
     shiny::observeEvent(input$erase_shp, {
       # reset file input input
-      shinyjs::reset("map_1-shp", asis = TRUE)
+      shinyjs::reset("shp")
       # rest geojoson_aoi
       geojson_aoi(NULL)
+      # clear shp name
+      output$shp_display_name <- shiny::renderText({""})
       
       # clear layer
       map_proxy <- mapgl::maplibre_proxy("map_1-map")
       map_proxy |>
         mapgl::clear_layer("shp_user")
+      
+      # set validation ui
+      shinyjs::runjs(
+        "document.querySelector('.form-control').classList.add('is-invalid');
+         document.querySelector('.shp-required').textContent = 'Required';"
+      )      
     })    
     
   })
