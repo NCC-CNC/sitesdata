@@ -1,6 +1,6 @@
 app_global <- quote({
   
   # product table
-  product_df <- read.csv(file.path("inst", "extdata", "product.csv"))
+  product_df <- read.csv(system.file("app", "product.csv", package = "sitesdata"))
   
 })
