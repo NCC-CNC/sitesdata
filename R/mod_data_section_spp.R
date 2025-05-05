@@ -18,7 +18,9 @@ mod_data_section_spp_ui <- function(id) {
         mod_data_card_ui("data_card_ch", "SAR Critical Habitat"),
         mod_data_card_ui("data_card_sar", "SAR Range Map Extents"),
         mod_data_card_ui("data_card_amph", "AOH Amphibians"),
-        mod_data_card_ui("data_card_bird", "AOH Birds"),
+        mod_data_card_ui("data_card_bird_s1", "AOH Birds (Resident)"),
+        mod_data_card_ui("data_card_bird_s2", "AOH Birds (Breeding)"),
+        mod_data_card_ui("data_card_bird_s3", "AOH Birds (Non-Breeding)"),
         mod_data_card_ui("data_card_mamm", "AOH Mammals"),
         mod_data_card_ui("data_card_rept", "AOH Reptiles"),
       )

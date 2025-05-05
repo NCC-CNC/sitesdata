@@ -15,6 +15,7 @@ Imports:
     DBI (>= 1.2.3),
     dplyr (>= 1.1.4),
     golem (>= 0.5.1),
+    geojsonsf (>= 2.0.3),
     mapgl (>= 0.2.1),
     RSQLite (>= 2.3.9),
     sf (>= 1.0.19),

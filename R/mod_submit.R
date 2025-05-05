@@ -22,8 +22,6 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
     ns <- session$ns
     shiny::observeEvent(input$submit, {
       
-      browser()
-      
       # connect to db
       transaction_db <- "C:/Github/sitesdata-backend/TEST_TransactionDB.sqlite"
       con <- DBI::dbConnect(RSQLite::SQLite(), transaction_db)
@@ -52,9 +50,9 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
       ## insert order
       UTC <- as.character(lubridate::now(tzone = "UTC"))
       DBI::dbExecute(con, "
-      INSERT INTO Orders (customer_id, order_date, geojson_aoi)
-      VALUES (?, ?, ?);
-      ", params = list(as.numeric(customer_id), UTC, geojson_aoi())
+      INSERT INTO Orders (customer_id, order_date, geojson_aoi, order_status)
+      VALUES (?, ?, ?, ?);
+      ", params = list(as.numeric(customer_id), UTC, geojson_aoi(), "pending")
       )
       
       # OrderDetails Tbl ----

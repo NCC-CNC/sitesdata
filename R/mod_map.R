@@ -66,23 +66,23 @@ mod_map_server <- function(id, geojson_aoi){
 
       if (shiny::isTruthy(shp())) {
         # translate to WGS 84 for display
-        shp_display <- sf::st_transform(shp(), crs=4326)
+        shp_wgs <- sf::st_transform(shp(), crs=4326)
 
         # update map
         map_proxy <- mapgl::maplibre_proxy("map_1-map")
          map_proxy |>
-           mapgl::fit_bounds(shp_display) |>
+           mapgl::fit_bounds(shp_wgs) |>
            mapgl::add_fill_layer(
              id = "shp_user",
-             source = shp_display,
+             source = shp_wgs,
              fill_outline_color = "#000",
              fill_color = "#AAA",
              fill_opacity = 0.7
            )
          
-         # convert to geojson for order
-         geojson_text <- sf::st_as_text(sf::st_geometry(shp()))
-         geojson_aoi(geojson_text)
+         # convert sf to geojson for order table (only need geometry)
+         shp_wgs_geom_only <- shp_wgs |> dplyr::select(geometry)
+         geojson_aoi(geojsonsf::sf_geojson(shp_wgs_geom_only))
          
          # set validation ui
          shinyjs::runjs(

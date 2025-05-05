@@ -20,7 +20,9 @@ app_server <- function(input, output, session) {
   mod_data_card_server("data_card_ch", order_manager, product = "SAR Critical Habitat")
   mod_data_card_server("data_card_sar", order_manager, product = "SAR Range Map Extents")
   mod_data_card_server("data_card_amph", order_manager, product = "AOH Amphibians")
-  mod_data_card_server("data_card_bird", order_manager, product = "AOH Birds")
+  mod_data_card_server("data_card_bird_s1", order_manager, product = "AOH Birds (Resident)")
+  mod_data_card_server("data_card_bird_s2", order_manager, product = "AOH Birds (Breeding)")
+  mod_data_card_server("data_card_bird_s3", order_manager, product = "AOH Birds (Non-Breeding)")
   mod_data_card_server("data_card_mamm", order_manager, product = "AOH Mammals")
   mod_data_card_server("data_card_rept", order_manager, product = "AOH Reptiles")
   
