@@ -89,6 +89,20 @@ mod_map_server <- function(id, geojson_aoi){
         )
         return()
       }
+      
+      # Polygon must be projected
+      if (is.na(sf::st_crs(shp()))) {
+        # set validation ui
+        shinyjs::runjs(
+        "document.querySelector('.form-control').classList.add('is-invalid');
+         document.querySelector('.shp-required').textContent = 'Polygon requires to be projected';
+         document.querySelector('.progress-bar').textContent = 'Error';
+         document.querySelector('.progress-bar').style.backgroundColor = '#c10000';
+         const spinner = document.querySelector('.spinner');
+         spinner.style.display = 'none'"
+        )
+        return()
+      }      
 
       # make sure aoi is polygon
       if (!all(sf::st_geometry_type(shp()) %in% c("POLYGON", "MULTIPOLYGON"))) {
