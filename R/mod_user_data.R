@@ -56,7 +56,7 @@ mod_user_data_ui <- function(id) {
           inputId = ns("confirm_email"),
           label = "Confirm Email",
           placeholder = "Dan.Wismer@natureconservancy.ca"
-        )        
+        )
       )
     )
   )

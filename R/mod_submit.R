@@ -26,11 +26,6 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
       transaction_db <- "C:/Github/sitesdata-backend/TEST_TransactionDB.sqlite"
       con <- DBI::dbConnect(RSQLite::SQLite(), transaction_db)
       
-      DBI::dbReadTable(con, "Orders")
-      DBI::dbReadTable(con, "OrderDetails")
-      DBI::dbReadTable(con, "Customers")
-      DBI::dbReadTable(con, "Product")
-      
       # CUSTOMER ----
       ## check if email exists
       if (email_exists(con, user_data_manager()$email)) {
