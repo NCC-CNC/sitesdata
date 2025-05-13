@@ -76,6 +76,7 @@ mod_map_server <- function(id, geojson_aoi){
       
       # convert shp to sf object
       shp <- upload_shp(input$shp)
+      shp_name <- paste0(tools::file_path_sans_ext(input$shp$name[1]), ".shp")
       
       # Catch any read error
       if (is.null(shp)) {
@@ -189,8 +190,10 @@ mod_map_server <- function(id, geojson_aoi){
       
       # update progress bar
       shinyjs::runjs(
-      "document.querySelector('.progress-bar').textContent = 'Valid Polygon';
-       document.querySelector('.progress-bar').style.backgroundColor = '33862B';"
+        paste0(
+          "document.querySelector('.progress-bar').textContent = 'Valid Polygon: ", shp_name, "';",
+          "document.querySelector('.progress-bar').style.backgroundColor = '#33862B';"
+        )
       )
       
       # set validation ui
