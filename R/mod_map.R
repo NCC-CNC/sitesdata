@@ -27,12 +27,11 @@ mod_map_ui <- function(id) {
       inputId = ns("shp"), 
       label = NULL, 
       multiple = TRUE,
-      accept = c(".shp", ".shx", ".dbf", ".prj", ".sbn", ".sbx", ".cpg")
-      ),
+      accept = c(".shp", ".shx", ".dbf", ".prj", ".sbn", ".sbx", ".cpg")),
      ".shp, .shx, .dbf, and .prj files are required."
      ),
     shiny::div(class = "shp-required", "Required")
-    )
+   )
   )
 }
     
@@ -56,28 +55,30 @@ mod_map_server <- function(id, geojson_aoi){
       )
     })
     
+    # Do everything 
     shiny::observeEvent(input$shp, {
-      # update progress bar
+      
+      # disable file input
       shinyjs::runjs(
-       "document.querySelector('.shp-required').textContent = 'Validating Polyogn';
-       document.querySelector('.progress-bar').textContent = '... Uploading';
+       "$('#map_1-shp').prop('disabled', true);
+        $('#map_1-shp').parents('span').addClass('disabled')"
+      )
+      
+      # update progress bar and spinner
+      shinyjs::runjs(
+      "document.querySelector('.form-control').classList.remove('is-invalid')
+       document.querySelector('.shp-required').textContent = '';
+       document.querySelector('.progress-bar').textContent = '... Validating Polygon';
        document.querySelector('.progress-bar').style.backgroundColor = '#33862B';
        const spinner = document.querySelector('.spinner');
        spinner.style.display = 'block'"
-      )   
-    })
-    
-    # Get path
-    path <- reactive({input$shp})
-    
-    # add layer 
-    shiny::observeEvent(path(), {
+      )        
       
       # convert shp to sf object
-      shp <- upload_shp(path)
+      shp <- upload_shp(input$shp)
       
-      # catch any error
-      if (is.null(shp())) {
+      # Catch any read error
+      if (is.null(shp)) {
         # set validation ui
         shinyjs::runjs(
         "document.querySelector('.form-control').classList.add('is-invalid');
@@ -91,7 +92,7 @@ mod_map_server <- function(id, geojson_aoi){
       }
       
       # Polygon must be projected
-      if (is.na(sf::st_crs(shp()))) {
+      if (is.na(sf::st_crs(shp))) {
         # set validation ui
         shinyjs::runjs(
         "document.querySelector('.form-control').classList.add('is-invalid');
@@ -105,7 +106,7 @@ mod_map_server <- function(id, geojson_aoi){
       }      
 
       # make sure aoi is polygon
-      if (!all(sf::st_geometry_type(shp()) %in% c("POLYGON", "MULTIPOLYGON"))) {
+      if (!all(sf::st_geometry_type(shp) %in% c("POLYGON", "MULTIPOLYGON"))) {
         # set validation ui
         shinyjs::runjs(
         "document.querySelector('.form-control').classList.add('is-invalid');
@@ -119,7 +120,7 @@ mod_map_server <- function(id, geojson_aoi){
       }
       
       # AOI should not exceed 5 polygons, will ask user to dissolve their poygon
-      if (nrow(shp()) > 5) {
+      if (nrow(shp) > 5) {
         # set validation ui
         shinyjs::runjs(
          "document.querySelector('.form-control').classList.add('is-invalid');
@@ -133,7 +134,7 @@ mod_map_server <- function(id, geojson_aoi){
       }
       
       # check number of planing units
-      shp_canada_albers <- sf::st_transform(shp(), crs = sf::st_crs(ncc_1km))
+      shp_canada_albers <- sf::st_transform(shp, crs = sf::st_crs(ncc_1km))
       ncc_1km_masked <- terra::mask(ncc_1km, shp_canada_albers )
       n_cells <- sum(terra::values(ncc_1km_masked) > 0, na.rm = TRUE)
       
@@ -163,8 +164,8 @@ mod_map_server <- function(id, geojson_aoi){
         return()
       }
       
-      # translate to WGS 84 for display
-      shp_wgs <- sf::st_transform(shp(), crs = 4326)
+      # transform to WGS 84 for display
+      shp_wgs <- sf::st_transform(shp, crs = 4326)
       
       # update progress bar
       shinyjs::runjs(
@@ -188,7 +189,7 @@ mod_map_server <- function(id, geojson_aoi){
       
       # update progress bar
       shinyjs::runjs(
-      "document.querySelector('.progress-bar').textContent = 'Upload Complete';
+      "document.querySelector('.progress-bar').textContent = 'Valid Polygon';
        document.querySelector('.progress-bar').style.backgroundColor = '33862B';"
       )
       
@@ -223,7 +224,14 @@ mod_map_server <- function(id, geojson_aoi){
       shinyjs::runjs(
         "document.querySelector('.form-control').classList.add('is-invalid');
          document.querySelector('.shp-required').textContent = 'Required';"
-      )      
+      )
+      
+      # enable file input
+      shinyjs::runjs(
+       "$('#map_1-shp').prop('disabled', false);
+        $('#map_1-shp').parents('span').removeClass('disabled')"
+      )
+      
     })    
     
   })
