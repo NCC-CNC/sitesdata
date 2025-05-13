@@ -36,16 +36,20 @@ mod_user_data_ui <- function(id) {
             "Government", 
             "Acemedimc", 
             "Industry"),
-        ),         
-        shiny::textInput(
-          inputId = ns("firstname"),
-          label = "First Name",
-          placeholder = "Dan"
         ),
-        shiny::textInput(
-          inputId = ns("lastname"),
-          label = "Last Name",
-          placeholder = "Wismer"
+        bslib::layout_columns(
+          widths = c(6, 6),
+          gap = "10px",
+          shiny::textInput(
+            inputId = ns("firstname"),
+            label = "First Name",
+            placeholder = "Dan"
+          ),
+          shiny::textInput(
+            inputId = ns("lastname"),
+            label = "Last Name",
+            placeholder = "Wismer"
+          )          
         ),
         shiny::textInput(
           inputId = ns("email"),
