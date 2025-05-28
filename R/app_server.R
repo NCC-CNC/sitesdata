@@ -17,6 +17,7 @@ app_server <- function(input, output, session) {
   geojson_aoi <- shiny::reactiveVal(NULL)
   
   # product cards
+  ## species
   mod_data_card_server("data_card_ch", order_manager, product = "SAR Critical Habitat")
   mod_data_card_server("data_card_sar", order_manager, product = "SAR Range Map Extents")
   mod_data_card_server("data_card_amph", order_manager, product = "AOH Amphibians")
@@ -25,6 +26,12 @@ app_server <- function(input, output, session) {
   mod_data_card_server("data_card_bird_s3", order_manager, product = "AOH Birds (Non-Breeding)")
   mod_data_card_server("data_card_mamm", order_manager, product = "AOH Mammals")
   mod_data_card_server("data_card_rept", order_manager, product = "AOH Reptiles")
+  ## climate
+  mod_data_card_server("data_card_climate_c", order_manager, product = "Climate Centrality")
+  mod_data_card_server("data_card_climate_e", order_manager, product = "Extreme Heat Events")
+  mod_data_card_server("data_card_climate_r", order_manager, product = "Climate Refugia")
+  ## protected areas
+  mod_data_card_server("data_card_cpcad", order_manager, product = "CPCAD")
   
   # data order
   mod_data_order_server("data_order_1", order_manager)

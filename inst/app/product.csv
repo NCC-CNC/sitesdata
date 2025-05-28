@@ -1,19 +1,20 @@
-﻿product_id,short_name,app_name,category
-1,ECCC_CH,SAR Critical Habitat,species
-2,ECCC_SAR,SAR Range Map Extents,species
-3,IUCN_AMPH,AOH Amphibians,species
-4,IUCN_BIRD_S1,AOH Birds (Resident),species
-5,IUCN_BIRD_S2,AOH Birds (Breeding),species
-6,IUCN_BIRD_S3,AOH Birds (Non-Breeding),species
-7,IUCN_MAMM,AOH Mammals,species
-8,IUCN_REPT,AOH Reptiles,species
-9,FOREST,Forest,habitat
-10,GRASSLAND,Grassland,habitat
-11,LAKES,Lakes,habitat
-12,RIVERS,Rivers,habitat
-13,SHORE,Shorline,habitat
-14,WETLAND,Wetland,habitat
-15,CLIMATE_C,Climate Centrality,climate
-16,CLIMATE_E,Extreme Heat Events,climate
-17,CLIMATE_R,Climate Refugia,climate
-18,REC,Recreation,ecosystem services
+﻿product_id,short_name,app_name,category,type
+1,ECCC_CH,SAR Critical Habitat,species,theme
+2,ECCC_SAR,SAR Range Map Extents,species,theme
+3,IUCN_AMPH,AOH Amphibians,species,theme
+4,IUCN_BIRD_S1,AOH Birds (Resident),species,theme
+5,IUCN_BIRD_S2,AOH Birds (Breeding),species,theme
+6,IUCN_BIRD_S3,AOH Birds (Non-Breeding),species,theme
+7,IUCN_MAMM,AOH Mammals,species,theme
+8,IUCN_REPT,AOH Reptiles,species,theme
+9,FOREST,Forest,habitat,theme
+10,GRASSLAND,Grassland,habitat,theme
+11,LAKES,Lakes,habitat,theme
+12,RIVERS,Rivers,habitat,theme
+13,SHORE,Shorline,habitat,theme
+14,WETLAND,Wetland,habitat,theme
+15,CLIMATE_C,Climate Centrality,climate,weight
+16,CLIMATE_E,Extreme Heat Events,climate,weight
+17,CLIMATE_R,Climate Refugia,climate,weight
+18,REC,Recreation,ecosystem services,weight
+19,CPCAD,CPCAD,protected areas,include

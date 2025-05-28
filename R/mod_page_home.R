@@ -38,7 +38,7 @@ mod_page_home_ui <- function(id) {
         shiny::p(shinipsum::random_text(nwords = 25), class = "card-description")
       ),
       bslib::card(
-        shiny::p("Conservation", class = "card-title"),
+        shiny::p("Protected Areas", class = "card-title"),
         shiny::p(shinipsum::random_text(nwords = 25), class = "card-description")
       ),
       bslib::card(

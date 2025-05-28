@@ -10,16 +10,30 @@
 mod_data_order_ui <- function(id, product_df) {
   ns <- NS(id)
   
+  # Species
   product_species <- product_df |>
     dplyr::filter(category == "species") |>
     dplyr::pull(app_name)
   
+  # Climate
+  product_climate <- product_df |>
+    dplyr::filter(category == "climate") |>
+    dplyr::pull(app_name)
+  
+  # Protected Areas
+  product_pa <- product_df |>
+    dplyr::filter(category == "protected areas") |>
+    dplyr::pull(app_name)  
+  
+  # Virtual Selection
   tagList(
     shinyWidgets::virtualSelectInput(
       inputId = ns("data_order"),
       label = shiny::p(bsicons::bs_icon("cart4", size = "1.2em"), "Data Order", class = "data-order-label"),
       choices = list(
-        "Species" = product_species
+        "Species" = product_species,
+        "Climate" = product_climate,
+        "Protected Areas" = product_pa
       ),
       showValueAsTags = TRUE,
       search = FALSE,

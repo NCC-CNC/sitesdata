@@ -42,7 +42,7 @@ app_ui <- function(request) {
           shiny::a(id="link_hab", href="#section_hab", "Habitat"),
           shiny::a(id="link_climate", href="#section_climate", "Climate"),
           shiny::a(id="link_eservice", href="#section_eservice", "Ecosystem Services"),
-          shiny::a(id="link_cons", href="#section_parks", "Conservation"),
+          shiny::a(id="link_pa", href="#section_pa", "Protected Areas"),
           shiny::a(id="link_hfi", href="#section_pressures", "Pressures"),
           shiny::a(id="link_hfi", href="#section_acknowledgments", "Details"),
           shiny::a(id="link_hfi", href="#section_acknowledgments", "Acknowledgments"),
@@ -64,7 +64,9 @@ app_ui <- function(request) {
           class = "main-content",
           mod_page_home_ui("home"),
           shiny::hr(),
-          mod_data_section_spp_ui("data_section_spp")
+          mod_data_section_spp_ui("data_section_spp"),
+          mod_data_section_climate_ui("data_section_climate"),
+          mod_data_section_protected_ui("data_section_pa")
         )
         
       )
