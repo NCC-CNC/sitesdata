@@ -1,20 +1,26 @@
-﻿product_id,short_name,app_name,category,type
-1,ECCC_CH,SAR Critical Habitat,species,theme
-2,ECCC_SAR,SAR Range Map Extents,species,theme
-3,IUCN_AMPH,AOH Amphibians,species,theme
-4,IUCN_BIRD_S1,AOH Birds (Resident),species,theme
-5,IUCN_BIRD_S2,AOH Birds (Breeding),species,theme
-6,IUCN_BIRD_S3,AOH Birds (Non-Breeding),species,theme
-7,IUCN_MAMM,AOH Mammals,species,theme
-8,IUCN_REPT,AOH Reptiles,species,theme
-9,FOREST,Forest,habitat,theme
-10,GRASSLAND,Grassland,habitat,theme
-11,LAKES,Lakes,habitat,theme
-12,RIVERS,Rivers,habitat,theme
-13,SHORE,Shorline,habitat,theme
-14,WETLAND,Wetland,habitat,theme
-15,CLIMATE_C,Climate Centrality,climate,weight
-16,CLIMATE_E,Extreme Heat Events,climate,weight
-17,CLIMATE_R,Climate Refugia,climate,weight
-18,REC,Recreation,ecosystem services,weight
-19,CPCAD,CPCAD,protected areas,include
+﻿product_id,type,category,theme_name,short_name, file_name,full_path,legend_name,datatype,file_prefix,legend_type,color,labels,values,unit,provenance,hiden,downloable
+1,include,protected areas,,CPCAD,cons.tif,inlcudes/cons.tif,CPCAD,INT1U,I_NAT,manual,"#00000000, #7fbc41","not included, included","0, 1",km2 ,national ,FALSE,TRUE
+2,theme,species,SAR Critical Habitat,ECCC_CH,eccc_ch.rds,themes/species/eccc_ch.rds,SAR Critical Habitat,INT2U,,continuous,Pruples,,,ha,national ,FALSE,TRUE
+3,theme,species,SAR Range Map Extents,ECCC_SAR,eccc_sar.rds,themes/species/eccc_sar.rds,SAR Range Map Extents,INT2U,,continuous,Reds,,,ha,national ,FALSE,TRUE
+4,theme,species,AOH Amphibians,IUCN_AMPH,iucn_amph.rds,themes/species/iucn_amph.rds,AOH Amphibians,INT2U,T_NAT_IUCN_AMPH_,manual,,"Non Habitat, Habitat","0, 1",km2 ,national ,FALSE,TRUE
+5,theme,species,AOH Birds (Resident),IUCN_BIRD_S1,iucn_bird_s1.rds,themes/species/iucn_bird_s1.rds,AOH Birds (Resident),INT1U,T_NAT_IUCN_BIRD_,manual,,"Non Habitat, Habitat","0, 1",km2 ,national ,FALSE,TRUE
+6,theme,species,AOH Birds (Breeding),IUCN_BIRD_S2,iucn_bird_s2.rds,themes/species/iucn_bird_s2.rds,AOH Birds (Breeding),INT1U,T_NAT_IUCN_BIRD_,manual,,"Non Habitat, Habitat","0, 1",km2 ,national ,FALSE,TRUE
+7,theme,species,AOH Birds (Non-Breeding),IUCN_BIRD_S3,iucn_bird_s3.rds,themes/species/iucn_bird_s3.rds,AOH Birds (Non-Breeding),INT1U,T_NAT_IUCN_BIRD_,manual,,"Non Habitat, Habitat","0, 1",km2 ,national ,FALSE,TRUE
+8,theme,species,AOH Mammals,IUCN_MAMM,iucn_bird_s4.rds,themes/species/iucn_mamm.rds,AOH Mammals,INT1U,T_NAT_IUCN_MAMM_,manual,,"Non Habitat, Habitat","0, 1",km2 ,national ,FALSE,TRUE
+9,theme,species,AOH Reptiles,IUCN_REPT,iucn_rept.rds,themes/species/iucn_rept.rds,AOH Reptiles,INT1U,T_NAT_IUCN_REPT_,manual,,"Non Habitat, Habitat","0, 1",km2 ,national ,FALSE,TRUE
+10,theme,habitat,Habitat,FOREST,forest_lc.tif,themes/habitat/forest_lc.tif,Forest,INT2U,T_NAT_HAB_,continuous,,,,ha,national ,FALSE,TRUE
+11,theme,habitat,Habitat,GRASSLAND,grass.tif,themes/habitat/grass.tif,Grassland,INT2U,T_NAT_HAB_,continuous,,,,ha,national ,FALSE,TRUE
+12,theme,habitat,Habitat,LAKES,lakes.tif,themes/habitat/lakes.tif,Lakes,FLT4S,T_NAT_HAB_,continuous,,,,ha,national ,FALSE,TRUE
+13,theme,habitat,Habitat,WETLAND,wet.tif,themes/habitat/wet.tif,Wetland,INT2U,T_NAT_HAB_,continuous,,,,ha,national ,FALSE,TRUE
+14,theme,habitat,Habitat (Linear),RIVERS,river.tif,themes/habitat/river.tif,Rivers,FLT4S,T_NAT_HABL_,continuous,,,,km,national ,FALSE,TRUE
+15,theme,habitat,Habitat (Linear),SHORELINE,shore.tif,themes/habitat/shore.tif,Shorline,FLT4S,T_NAT_HABL_,continuous,,,,km,national ,FALSE,TRUE
+16,weight,carbon,,CARBON_P,carbon_p.tif,weights/carbon/carbon_p.tif,Carbon Potential,FLT4S,W_NAT_,continuous,,,,tonnes/yr,national ,FALSE,TRUE
+17,weight,carbon,,CARBON_S,carbon_s.tif,weights/carbon/carbon_s.tif,Carbon Storage,FLT4S,W_NAT_,continuous,,,,tonnes,national ,FALSE,TRUE
+18,weight,climate,,CLIMATE_C,climate_c.tif,weights/climate/climate_c.tif,Climate Centrality,FLT4S,W_NAT_,continuous,magma,,,index,national ,FALSE,TRUE
+19,weight,climate,,CLIMATE_E,climate_e.tif,weights/climate/climate_e.tif,Extreme Heat Events,FLT4S,W_NAT_,continuous,magma,,,index,national ,FALSE,TRUE
+20,weight,climate,,CLIMATE_R,climate_r.tif,weights/climate/climate_r.tif,Climate Refugia,FLT4S,W_NAT_,continuous,magma,,,index,national ,FALSE,TRUE
+21,weight,connectivity,,CONNECT,connect.tif,weights/connectivity/connect.tif,Connectivity,FLT4S,W_NAT_,continuous,mako,,,current density,national ,FALSE,TRUE
+22,weight,ecosystem services,,FRESHW,freshw.tif,weights/eservices/freshw.tif,Freshwater Provision,FLT4S,W_NAT_,continuous,Blues,,,index,national ,FALSE,TRUE
+23,weight,ecosystem services,,REC,rec.tif,weights/eservices/rec.tif,Recreation,FLT4S,W_NAT_,continuous,Greens,,,index,national ,FALSE,TRUE
+24,weight,pressures,,HFI,hfi.tif,weights/pressures/hfi.tif,Human Foorpint Index,FLT4S,W_NAT_,continuous,rocket,,,index,national ,FALSE,TRUE
+25,weight,hotspot,,KBA,kba.tif,weights/hotspots/kba.tif,Key Biodiversity Areas,INT1U,W_NAT_,manual,"#00000000, #1c9099","Non KBA, KBA","0, 1",km2 ,national ,FALSE,TRUE
