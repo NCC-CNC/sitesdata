@@ -23,7 +23,7 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
     shiny::observeEvent(input$submit, {
       
       # connect to db
-      transaction_db <- "C:/Github/sitesdata-backend/TEST_TransactionDB.sqlite"
+      transaction_db <- "C:/Github/sitesdata-backend/data/transaction_db.sqlite"
       con <- DBI::dbConnect(RSQLite::SQLite(), transaction_db)
       
       # CUSTOMER ----
