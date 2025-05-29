@@ -13,17 +13,17 @@ mod_data_order_ui <- function(id, product_df) {
   # Species
   product_species <- product_df |>
     dplyr::filter(category == "species") |>
-    dplyr::pull(app_name)
+    dplyr::pull(legend_name)
   
   # Climate
   product_climate <- product_df |>
     dplyr::filter(category == "climate") |>
-    dplyr::pull(app_name)
+    dplyr::pull(legend_name)
   
   # Protected Areas
   product_pa <- product_df |>
     dplyr::filter(category == "protected areas") |>
-    dplyr::pull(app_name)  
+    dplyr::pull(legend_name)  
   
   # Virtual Selection
   tagList(

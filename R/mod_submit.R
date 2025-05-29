@@ -60,7 +60,7 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
       order_details <- order_manager() |>
         dplyr::filter(Order == TRUE) |>
         dplyr::mutate(order_id = as.numeric(order_id)) |>
-        dplyr::left_join(product_df, by = c("Product" = "app_name")) |>
+        dplyr::left_join(product_df, by = c("Product" = "legend_name")) |>
         dplyr::select(order_id, product_id)
       ## insert to order items
       DBI::dbAppendTable(con, "OrderDetails", order_details)
