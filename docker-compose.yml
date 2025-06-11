@@ -8,5 +8,8 @@ services:
     ports:
       - "3838:3838"
     environment:
-      # environmental variables defined in ./.env
       - R_CONFIG_ACTIVE
+      - WORK_DIR=${PWD}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${TRANSACTION_DB}:/opt/transaction_db.sqlite:rw
