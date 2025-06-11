@@ -17,14 +17,13 @@ mod_submit_ui <- function(id) {
 #' submit Server Functions
 #'
 #' @noRd 
-mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi, product_df){
+mod_submit_server <- function(id, app_db, order_manager, user_data_manager, geojson_aoi, product_df){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     shiny::observeEvent(input$submit, {
       
       # connect to db
-      transaction_db <- "C:/Github/sitesdata-backend/data/transaction_db.sqlite"
-      con <- DBI::dbConnect(RSQLite::SQLite(), transaction_db)
+      con <- DBI::dbConnect(RSQLite::SQLite(), app_db)
       
       # CUSTOMER ----
       ## check if email exists

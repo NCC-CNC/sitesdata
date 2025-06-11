@@ -9,6 +9,10 @@ app_server <- function(input, output, session) {
   # set upload size to 100mb max
   options(shiny.maxRequestSize = 100 * 1024^2)
   
+  # get db
+  configs <- setup()
+  app_db <- configs$db$transaction_db
+  
   # order manager
   order_manager <- shiny::reactiveVal(init_order_manager(product_df))
   # user data 
@@ -46,7 +50,7 @@ app_server <- function(input, output, session) {
   mod_confirm_order_server("confirm_order_1", order_manager, user_data_manager, geojson_aoi, product_df)
   
   # submit
-  mod_submit_server("submit_1", order_manager, user_data_manager, geojson_aoi, product_df)
+  mod_submit_server("submit_1", app_db, order_manager, user_data_manager, geojson_aoi, product_df)
   
   # enable/disable submit
   observe({

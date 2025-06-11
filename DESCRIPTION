@@ -18,6 +18,7 @@ Imports:
     golem (>= 0.5.1),
     geojsonsf (>= 2.0.3),
     mapgl (>= 0.2.1),
+    RcppTOML (>= 0.2.3),
     RSQLite (>= 2.3.9),
     sf (>= 1.0.19),
     shiny (>= 1.10.0),
