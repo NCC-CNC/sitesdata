@@ -18,6 +18,18 @@
   padding: 8px
 }
 
+/* confrim-submit modal */
+.modal-header {
+  margin-bottom: -45px !important;
+}
+.confrim-customer {
+  font-weight: 600;
+}
+
+#shiny-modal {
+  overflow: hidden;
+}
+
 /*
 .left-sidebar-menu__links a:last-child {
   margin-top: auto; 

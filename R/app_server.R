@@ -42,6 +42,9 @@ app_server <- function(input, output, session) {
   # user data
   mod_user_data_server("user_data_1", user_data_manager)
   
+  # confirm order
+  mod_confirm_order_server("confirm_order_1", order_manager, user_data_manager, geojson_aoi, product_df)
+  
   # submit
   mod_submit_server("submit_1", order_manager, user_data_manager, geojson_aoi, product_df)
   
@@ -55,9 +58,9 @@ app_server <- function(input, output, session) {
       # geojson_aoi
       !is.null(geojson_aoi())
     ) {
-      shinyjs::enable("submit_1-submit")
+      shinyjs::enable("confirm_order_1-confirm_order")
     } else {
-      shinyjs::disable("submit_1-submit")
+      shinyjs::disable("confirm_order_1-confirm_order")
     }
   })
   

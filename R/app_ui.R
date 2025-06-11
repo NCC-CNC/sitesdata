@@ -56,7 +56,7 @@ app_ui <- function(request) {
           width = "500px",
           mod_data_order_ui("data_order_1", product_df),
           mod_user_data_ui("user_data_1"),
-          mod_submit_ui("submit_1")
+          mod_confirm_order_ui("confirm_order_1")
         ),
         # Main content section
         shiny::div(
