@@ -30,6 +30,16 @@
   overflow: hidden;
 }
 
+.order-submitted-wrapper {
+  display: none;
+}
+
+.order-submitted {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
 /*
 .left-sidebar-menu__links a:last-child {
   margin-top: auto; 

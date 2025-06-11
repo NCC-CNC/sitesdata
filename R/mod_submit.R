@@ -68,6 +68,12 @@ mod_submit_server <- function(id, order_manager, user_data_manager, geojson_aoi,
       # Disconnect from DB
       DBI::dbDisconnect(con)
       
+      # Feedback to user
+      shinyjs::runjs("document.querySelector('.order-submitted-wrapper').style.display = 'block';")
+      
+      # disable submit button
+      shinyjs::disable("submit")
+      
     })
 })}
     

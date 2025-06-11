@@ -24,6 +24,10 @@ mod_confirm_order_server <- function(id, order_manager, user_data_manager, geojs
     ns <- session$ns
     observeEvent(input$confirm_order, {
       
+      # enable submit button
+      shinyjs::enable("submit_1-submit")
+      
+      # build order table for display
       order_table_df <- dplyr::left_join(
         order_manager(), product_df, by = c("Product" = "legend_name")) |>
           dplyr::select(type, category, Product) |>
@@ -33,7 +37,7 @@ mod_confirm_order_server <- function(id, order_manager, user_data_manager, geojs
           `Product` = Product
         )
       
-      # Assign to output
+      # DT table
       output$order_table <- DT::renderDT({
         DT::datatable(
           order_table_df,
@@ -51,7 +55,7 @@ mod_confirm_order_server <- function(id, order_manager, user_data_manager, geojs
         )
       })
       
-      # Confirm order modal  
+      # Confirm order modal 
       shiny::showModal(
         shiny::modalDialog(
         title = "Confrim and submit order:",
@@ -62,11 +66,16 @@ mod_confirm_order_server <- function(id, order_manager, user_data_manager, geojs
         DT::DTOutput(ns("order_table")),
         easyClose = TRUE,
         footer = shiny::tagList(
+          shiny::div(class="order-submitted-wrapper", 
+          shiny::tags$p(class="order-submitted", "Order Submitted!"),
+          shiny::tags$p(class="order-confrim-email", "Confrimation will be sent to: ",  user_data_manager()$email)
+          ),
           mod_submit_ui("submit_1"),
           shiny::span(shiny::modalButton("Cancel"))),
         size = "l"
       ))
     })
+ 
   })
 }
     
