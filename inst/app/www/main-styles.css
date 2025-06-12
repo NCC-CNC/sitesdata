@@ -40,6 +40,11 @@
   margin-bottom: 0px;
 }
 
+.order-confrim-email {
+  margin-bottom: 0px;
+  font-size: 0.75rem;
+}
+
 /*
 .left-sidebar-menu__links a:last-child {
   margin-top: auto; 

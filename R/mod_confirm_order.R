@@ -68,7 +68,8 @@ mod_confirm_order_server <- function(id, order_manager, user_data_manager, geojs
         footer = shiny::tagList(
           shiny::div(class="order-submitted-wrapper", 
           shiny::tags$p(class="order-submitted", "Order Submitted!"),
-          shiny::tags$p(class="order-confrim-email", "Confrimation will be sent to: ",  user_data_manager()$email)
+          shiny::tags$p(class="order-confrim-email", "Confrimation will be sent to:"),
+          shiny::tags$p(class="order-confrim-email" , user_data_manager()$email)
           ),
           mod_submit_ui("submit_1"),
           shiny::span(shiny::modalButton("Cancel"))),
