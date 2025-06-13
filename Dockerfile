@@ -58,7 +58,6 @@ COPY R /app/R
 COPY .Rbuildignore /app
 COPY DESCRIPTION /app
 COPY NAMESPACE /app
-COPY 'setup.toml' /app
 
 # Install the local R package
 # The 'upgrade = "never"' prevents automatic package upgrades
