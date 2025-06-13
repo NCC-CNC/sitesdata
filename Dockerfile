@@ -71,9 +71,15 @@ CMD ["/bin/bash"]
 # Start of the Shiny server image stage
 FROM base AS shiny
 
-# Ensure /opt is writable by shiny
-USER root
-RUN chown -R shiny:shiny /opt
+# Copy the entrypoint script into the container
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Ensure /opt/db exists for the chown command in the entrypoint
+# Note: This is good practice but not strictly necessary since the volume will create it.
+RUN mkdir -p /opt/db
 
 # Switch to the 'shiny' user for security
 # Prevents running the app as root

@@ -14,9 +14,11 @@ setup <- function() {
   if (is_docker) {
     print ("docker")
     db <- configs$docker$db
+    print(db)
   } else {
     print("local")
     db <- configs$local$db
+    print(db)
   }
   
   return(list(

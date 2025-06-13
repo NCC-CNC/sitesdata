@@ -12,4 +12,4 @@ services:
       - WORK_DIR=${PWD}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${TRANSACTION_DB}:/opt/transaction_db.sqlite:rw
+      - ${TRANSACTION_DB}:/opt/db
