@@ -71,6 +71,10 @@ CMD ["/bin/bash"]
 # Start of the Shiny server image stage
 FROM base AS shiny
 
+# Ensure /opt is writable by shiny
+USER root
+RUN chown -R shiny:shiny /opt
+
 # Switch to the 'shiny' user for security
 # Prevents running the app as root
 USER shiny
