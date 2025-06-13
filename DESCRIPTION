@@ -17,6 +17,7 @@ Imports:
     DT (>= 0.33),
     golem (>= 0.5.1),
     geojsonsf (>= 2.0.3),
+    lubridate (>= 1.9.4),
     mapgl (>= 0.2.1),
     RcppTOML (>= 0.2.3),
     RSQLite (>= 2.3.9),
