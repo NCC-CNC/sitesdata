@@ -1,57 +1,37 @@
-# Use the official Rocker Shiny base image with R 4.4.3
-# Rocker provides pre-configured R images
-FROM rocker/shiny:4.4.3 AS base
+FROM rocker/shiny:4.4.3 AS base 
 
-# Remove default example Shiny apps that come with the base image
+# Remove default example apps from Shiny Server
 RUN rm -rf /srv/shiny-server/*
 
-# Install system-level dependencies and libraries
+# Install system-level dependencies
 RUN apt-get update && apt-get install -y \
-    # Allows adding external package repositories
     software-properties-common \
-    # GDAL binaries and command-line tools
     gdal-bin \
-    # GDAL development libraries
     libgdal-dev \
-    # Geometry engine libraries
     libgeos-dev \
-    # Cartographic projection library
     libproj-dev \
-    # Projection command-line tools
     proj-bin \
-    # Libraries for handling network requests in R
     libcurl4-gnutls-dev \
-    # SSL support
     libssl-dev \
-    # Units conversion library
     libudunits2-dev \
-    # Text rendering libraries
     libharfbuzz-dev \
     libfribidi-dev \
     libfontconfig1-dev \
-    # Clean up package lists to reduce image size
     && rm -rf /var/lib/apt/lists/*
 
-# Create a directory for managing R package dependencies
+# Create directory for R package restoration
 RUN mkdir /renv
 
-# Copy the renv lock file into the container
-# This file specifies exact versions of R packages to install
+# Copy lockfile and restore R packages using renv
 COPY renv.lock /renv/renv.lock
-
-# Install renv and remotes packages
-# Then restore the exact package versions from the lock file
 RUN cd /renv && \
-    # Install package management tools
     Rscript -e 'install.packages(c("renv", "remotes"))' && \
-    # Restore packages to match the locked versions
     Rscript -e 'renv::restore()'
 
-# Create a directory for the application
+# Create directory for local R package source
 RUN mkdir /app
 
-# Copy various application components into the container
-# This includes documentation, R scripts, package configuration
+# Copy R package source files into image
 COPY inst /app/inst
 COPY man /app/man
 COPY R /app/R
@@ -59,52 +39,37 @@ COPY .Rbuildignore /app
 COPY DESCRIPTION /app
 COPY NAMESPACE /app
 
-# Install the local R package
-# The 'upgrade = "never"' prevents automatic package upgrades
+# Install the golem app as local R package
 RUN cd /app && \
     Rscript -e 'remotes::install_local(upgrade = "never")'
 
-# Default command if no other command is specified
-# Drops into a bash shell
-CMD ["/bin/bash"]
-
-# Start of the Shiny server image stage
-FROM base AS shiny
-
-# Copy the entrypoint script into the container
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-
-# Make the entrypoint script executable
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# Ensure /opt/db exists for the chown command in the entrypoint
-# Note: This is good practice but not strictly necessary since the volume will create it.
+# Create the database directory
 RUN mkdir -p /opt/db
 
-# Switch to the 'shiny' user for security
-# Prevents running the app as root
-USER shiny
+# Give shiny user access to /opt/db
+RUN chown -R shiny:shiny /opt/db
 
-# Expose the default Shiny server port
-EXPOSE 3838
-
-# Set environment variables for Shiny server configuration
+# Set environment variables for Shiny server
 ENV R_SHINY_PORT=3838
 ENV R_SHINY_HOST=0.0.0.0
 
-# Write environment variables to .Renviron file
-# This allows R to read these configuration settings
+# Write env vars to .Renviron so they're accessible in R
 RUN env | grep R_SHINY_PORT > /home/shiny/.Renviron && \
     env | grep R_SHINY_HOST >> /home/shiny/.Renviron
 
-# Create a directory for the Shiny app
-RUN mkdir /home/shiny/app
+# Runtime stage: prepares Shiny app environment for execution
+FROM base AS shiny
 
-# Copy the Shiny app R script
+## set user
+USER shiny
+
+# Create app directory and copy Shiny app script
+RUN mkdir -p /home/shiny/app
 COPY app.R /home/shiny/app/app.R
-
-# Set the working directory to the app folder
 WORKDIR /home/shiny/app
 
-# Command to start the Shiny app
+# Expose default Shiny port
+EXPOSE 3838
+
+# Default command to run the Shiny app
 CMD ["/usr/local/bin/Rscript", "/home/shiny/app/app.R"]

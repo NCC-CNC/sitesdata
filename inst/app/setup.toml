@@ -1,6 +1,6 @@
 [local]
 [local.db]
-transaction_db = "C:/Github/sitesdata-backend/data/transaction_db.sqlite"
+transaction_db = "C:/Github/sitesdata-backend/data/db/transaction_db.sqlite"
 
 [docker]
 [docker.db]
