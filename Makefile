@@ -11,3 +11,9 @@ get-in-to-test:
 debug-pipeline:
 	R && \
 	source("R/__pipeline__.R", echo = TRUE, verbose = TRUE)
+	
+named-volume:
+	docker volume create sitesdata-transactional_db 
+	
+get-shiny-id:
+	docker run --rm f3722be50fe9 id shiny

@@ -46,8 +46,8 @@ RUN cd /app && \
 # Create the database directory
 RUN mkdir -p /opt/db
 
-# Give shiny user access to /opt/db
-RUN chown -R shiny:shiny /opt/db
+# Give everyone access to /opt/db
+RUN chmod -R 666 /opt/db
 
 # Set environment variables for Shiny server
 ENV R_SHINY_PORT=3838
