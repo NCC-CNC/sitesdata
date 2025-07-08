@@ -44,10 +44,11 @@ RUN cd /app && \
     Rscript -e 'remotes::install_local(upgrade = "never")'
 
 # Create the database directory
-RUN mkdir -p /opt/db
+RUN mkdir /opt/db
 
 # Access to /opt/db
 RUN chmod -R 777 /opt/db
+## RUN chmod 777 /opt/db/transaction_db.sqlite
 
 # Set environment variables for Shiny server
 ENV R_SHINY_PORT=3838
