@@ -54,7 +54,7 @@ app_ui <- function(request) {
         sidebar = bslib::sidebar(
           position = "right",
           width = "500px",
-          mod_data_order_ui("data_order_1", product_df),
+          mod_data_order_ui("data_order_1", product_tbl),
           mod_user_data_ui("user_data_1"),
           mod_confirm_order_ui("confirm_order_1")
         ),

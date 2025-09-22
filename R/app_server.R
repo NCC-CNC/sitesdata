@@ -6,15 +6,8 @@
 #' @noRd
 app_server <- function(input, output, session) {
   
-  # set upload size to 100mb max
-  options(shiny.maxRequestSize = 100 * 1024^2)
-  
-  # get db
-  configs <- setup()
-  app_db <- configs$db$transaction_db
-  
   # order manager
-  order_manager <- shiny::reactiveVal(init_order_manager(product_df))
+  order_manager <- shiny::reactiveVal(init_order_manager(product_tbl))
   # user data 
   user_data_manager <- shiny::reactiveVal(init_user_data())
   # geojson aoi
@@ -22,14 +15,14 @@ app_server <- function(input, output, session) {
   
   # product cards
   ## species
-  mod_data_card_server("data_card_ch", order_manager, product = "SAR Critical Habitat")
-  mod_data_card_server("data_card_sar", order_manager, product = "SAR Range Map Extents")
-  mod_data_card_server("data_card_amph", order_manager, product = "AOH Amphibians")
-  mod_data_card_server("data_card_bird_s1", order_manager, product = "AOH Birds (Resident)")
-  mod_data_card_server("data_card_bird_s2", order_manager, product = "AOH Birds (Breeding)")
-  mod_data_card_server("data_card_bird_s3", order_manager, product = "AOH Birds (Non-Breeding)")
-  mod_data_card_server("data_card_mamm", order_manager, product = "AOH Mammals")
-  mod_data_card_server("data_card_rept", order_manager, product = "AOH Reptiles")
+  mod_data_card_server("data_card_ch", order_manager, product = "ECCC SAR Critical Habitat")
+  mod_data_card_server("data_card_sar", order_manager, product = "ECCC SAR Range Map Extents")
+  mod_data_card_server("data_card_amph", order_manager, product = "IUCN AOH Amphibians")
+  mod_data_card_server("data_card_bird_s1", order_manager, product = "IUCN AOH Birds (Resident)")
+  mod_data_card_server("data_card_bird_s2", order_manager, product = "IUCN AOH Birds (Breeding)")
+  mod_data_card_server("data_card_bird_s3", order_manager, product = "IUCN AOH Birds (Non-Breeding)")
+  mod_data_card_server("data_card_mamm", order_manager, product = "IUCN AOH Mammals")
+  mod_data_card_server("data_card_rept", order_manager, product = "IUCN AOH Reptiles")
   ## climate
   mod_data_card_server("data_card_climate_c", order_manager, product = "Climate Centrality")
   mod_data_card_server("data_card_climate_e", order_manager, product = "Extreme Heat Events")
@@ -47,10 +40,10 @@ app_server <- function(input, output, session) {
   mod_user_data_server("user_data_1", user_data_manager)
   
   # confirm order
-  mod_confirm_order_server("confirm_order_1", order_manager, user_data_manager, geojson_aoi, product_df)
+  mod_confirm_order_server("confirm_order_1", order_manager, user_data_manager, geojson_aoi, product_tbl)
   
   # submit
-  mod_submit_server("submit_1", app_db, order_manager, user_data_manager, geojson_aoi, product_df)
+  mod_submit_server("submit_1", app_db, order_manager, user_data_manager, geojson_aoi, product_tbl)
   
   # enable/disable submit
   observe({

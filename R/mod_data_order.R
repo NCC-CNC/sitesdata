@@ -7,21 +7,21 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
-mod_data_order_ui <- function(id, product_df) {
+mod_data_order_ui <- function(id, product_tbl) {
   ns <- NS(id)
   
   # Species
-  product_species <- product_df |>
+  product_species <- product_tbl |>
     dplyr::filter(category == "species") |>
     dplyr::pull(legend_name)
   
   # Climate
-  product_climate <- product_df |>
+  product_climate <- product_tbl |>
     dplyr::filter(category == "climate") |>
     dplyr::pull(legend_name)
   
   # Protected Areas
-  product_pa <- product_df |>
+  product_pa <- product_tbl |>
     dplyr::filter(category == "protected areas") |>
     dplyr::pull(legend_name)  
   

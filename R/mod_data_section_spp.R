@@ -15,14 +15,14 @@ mod_data_section_spp_ui <- function(id) {
     bslib::layout_columns(
       col_widths = 12,
       bslib::card(
-        mod_data_card_ui("data_card_ch", "SAR Critical Habitat"),
-        mod_data_card_ui("data_card_sar", "SAR Range Map Extents"),
-        mod_data_card_ui("data_card_amph", "AOH Amphibians"),
-        mod_data_card_ui("data_card_bird_s1", "AOH Birds (Resident)"),
-        mod_data_card_ui("data_card_bird_s2", "AOH Birds (Breeding)"),
-        mod_data_card_ui("data_card_bird_s3", "AOH Birds (Non-Breeding)"),
-        mod_data_card_ui("data_card_mamm", "AOH Mammals"),
-        mod_data_card_ui("data_card_rept", "AOH Reptiles"),
+        mod_data_card_ui("data_card_ch", "ECCC SAR Critical Habitat"),
+        mod_data_card_ui("data_card_sar", "ECCC SAR Range Map Extents"),
+        mod_data_card_ui("data_card_amph", "IUCN AOH Amphibians"),
+        mod_data_card_ui("data_card_bird_s1", "IUCN AOH Birds (Resident)"),
+        mod_data_card_ui("data_card_bird_s2", "IUCN AOH Birds (Breeding)"),
+        mod_data_card_ui("data_card_bird_s3", "IUCN AOH Birds (Non-Breeding)"),
+        mod_data_card_ui("data_card_mamm", "IUCN AOH Mammals"),
+        mod_data_card_ui("data_card_rept", "IUCN AOH Reptiles"),
       )
     )
   )

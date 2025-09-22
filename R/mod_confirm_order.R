@@ -19,7 +19,7 @@ mod_confirm_order_ui <- function(id) {
 #' confirm_order Server Functions
 #'
 #' @noRd 
-mod_confirm_order_server <- function(id, order_manager, user_data_manager, geojson_aoi, product_df){
+mod_confirm_order_server <- function(id, order_manager, user_data_manager, geojson_aoi, product_tbl){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     observeEvent(input$confirm_order, {
@@ -28,9 +28,10 @@ mod_confirm_order_server <- function(id, order_manager, user_data_manager, geojs
       shinyjs::enable("submit_1-submit")
       
       # build order table for display
-      order_table_df <- dplyr::left_join(
-        order_manager(), product_df, by = c("Product" = "legend_name")) |>
-          dplyr::select(type, category, Product) |>
+      order_table_df <- order_manager() |>
+        dplyr::filter(Order == TRUE) |>
+        dplyr::left_join(product_tbl, by = c("Product" = "legend_name")) |>
+        dplyr::select(type, category, Product) |>
         dplyr::rename(
           `Type` = type,
           `Category` = category,

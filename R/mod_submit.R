@@ -17,7 +17,7 @@ mod_submit_ui <- function(id) {
 #' submit Server Functions
 #'
 #' @noRd 
-mod_submit_server <- function(id, app_db, order_manager, user_data_manager, geojson_aoi, product_df){
+mod_submit_server <- function(id, app_db, order_manager, user_data_manager, geojson_aoi, product_tbl){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     shiny::observeEvent(input$submit, {
@@ -59,7 +59,7 @@ mod_submit_server <- function(id, app_db, order_manager, user_data_manager, geoj
       order_details <- order_manager() |>
         dplyr::filter(Order == TRUE) |>
         dplyr::mutate(order_id = as.numeric(order_id)) |>
-        dplyr::left_join(product_df, by = c("Product" = "legend_name")) |>
+        dplyr::left_join(product_tbl, by = c("Product" = "legend_name")) |>
         dplyr::select(order_id, product_id)
       ## insert to order items
       DBI::dbAppendTable(con, "OrderDetails", order_details)
