@@ -4,7 +4,7 @@
 #'
 #' @return The return value, if any, from executing the function.
 #'
-#' @noRd
+#' @export
 setup <- function() {
   
   toml <- system.file("app", "setup.toml", package = "sitesdata")

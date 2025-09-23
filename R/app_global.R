@@ -4,8 +4,7 @@ app_global <- quote({
   options(shiny.maxRequestSize = 100 * 1024^2)
   
   # Configure app set up
-  source("R/fct_setup.R")
-  configs <- setup()
+  configs <- sitesdata::setup()
   app_db <- configs$db$transaction_db
   
   # Read-in product table
