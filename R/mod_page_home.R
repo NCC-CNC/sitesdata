@@ -22,27 +22,15 @@ mod_page_home_ui <- function(id) {
     bslib::layout_column_wrap(
       width = 1/3,
       bslib::card(
-        shiny::p("Species", class = "card-title"),
+        shiny::p("Themes", class = "card-title"),
         shiny::p(shinipsum::random_text(nwords = 25), class = "card-description")
       ),
       bslib::card(
-        shiny::p("Habitat", class = "card-title"),
+        shiny::p("Weights", class = "card-title"),
         shiny::p(shinipsum::random_text(nwords = 25), class = "card-description")
       ),
       bslib::card(
-        shiny::p("Climate", class = "card-title"),
-        shiny::p(shinipsum::random_text(nwords = 25), class = "card-description")
-      ),
-      bslib::card(
-        shiny::p("Ecosystem Services", class = "card-title"),
-        shiny::p(shinipsum::random_text(nwords = 25), class = "card-description")
-      ),
-      bslib::card(
-        shiny::p("Protected Areas", class = "card-title"),
-        shiny::p(shinipsum::random_text(nwords = 25), class = "card-description")
-      ),
-      bslib::card(
-        shiny::p("Pressures", class = "card-title"),
+        shiny::p("Includes", class = "card-title"),
         shiny::p(shinipsum::random_text(nwords = 25), class = "card-description")
       )
   )
