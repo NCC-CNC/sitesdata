@@ -12,10 +12,17 @@
 
 .left-sidebar-menu__links a {
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: black;
   transition: background-color 0.3s ease;
   padding: 8px
+}
+
+.sidebar-section-title{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 10px;
 }
 
 /* confrim-submit modal */
@@ -72,7 +79,7 @@
   color: #333;
 }
 
-.section-title {
+.data-group-title {
   font-size: 1.5rem;
   font-weight: bold;
   color: #333;
