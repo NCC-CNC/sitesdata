@@ -10,19 +10,44 @@
 mod_data_order_ui <- function(id, product_tbl) {
   ns <- NS(id)
   
+  # Habitat
+  product_habitat <- product_tbl |>
+    dplyr::filter(category == "habitat") |>
+    dplyr::pull(legend_name)
+  
   # Species
   product_species <- product_tbl |>
     dplyr::filter(category == "species") |>
     dplyr::pull(legend_name)
+  
+  # Carbon
+  product_carbon <- product_tbl |>
+    dplyr::filter(category == "carbon") |>
+    dplyr::pull(legend_name)  
   
   # Climate
   product_climate <- product_tbl |>
     dplyr::filter(category == "climate") |>
     dplyr::pull(legend_name)
   
+  # Connectivity
+  product_connectivity <- product_tbl |>
+    dplyr::filter(category == "connectivity") |>
+    dplyr::pull(legend_name)  
+  
+  # E-Service
+  product_eservice <- product_tbl |>
+    dplyr::filter(category == "eservice") |>
+    dplyr::pull(legend_name)   
+  
+  # Pressures
+  product_pressures <- product_tbl |>
+    dplyr::filter(category == "pressures") |>
+    dplyr::pull(legend_name)  
+  
   # Protected Areas
   product_pa <- product_tbl |>
-    dplyr::filter(category == "protected areas") |>
+    dplyr::filter(category == "protected") |>
     dplyr::pull(legend_name)  
   
   # Virtual Selection
@@ -31,8 +56,13 @@ mod_data_order_ui <- function(id, product_tbl) {
       inputId = ns("data_order"),
       label = shiny::p(bsicons::bs_icon("cart4", size = "1.2em"), "Data Order", class = "data-order-label"),
       choices = list(
+        "Habitat" = product_habitat,
         "Species" = product_species,
+        "Carbon" = product_carbon,
         "Climate" = product_climate,
+        "Connectivity" = product_connectivity,
+        "Ecosystem Services" = product_eservice,
+        "Pressures" = product_pressures,
         "Protected Areas" = product_pa
       ),
       showValueAsTags = TRUE,
@@ -47,8 +77,8 @@ mod_data_order_ui <- function(id, product_tbl) {
 #' @noRd 
 mod_data_order_server <- function(id, order_manager){
   moduleServer(id, function(input, output, session){
-    ns <- session$ns
     
+    ns <- session$ns
     
     observeEvent(input$data_order, {
       current_data <- order_manager()  # Retrieve the current tibble
