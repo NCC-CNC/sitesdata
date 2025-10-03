@@ -11,21 +11,7 @@ app_ui <- function(request) {
     shinyjs::useShinyjs(),
     # HTML 
     shiny::tags$head(
-      tags$link(rel="stylesheet", type="text/css", href="www/main-styles.css"),
-      # Add smooth scrolling behavior
-      tags$script(HTML("
-        document.addEventListener('DOMContentLoaded', function() {
-          document.querySelectorAll('.sidebar-menu__links a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-              e.preventDefault();
-              const targetId = this.getAttribute('href').substring(1);
-              document.getElementById(targetId).scrollIntoView({
-                behavior: 'smooth'
-              });
-            });
-          });
-        });
-      "))
+      tags$link(rel="stylesheet", type="text/css", href="www/main-styles.css")
     ),
     bslib::page_sidebar(
       id = "sitesdata",
@@ -37,16 +23,26 @@ app_ui <- function(request) {
         width = "225px",
         id = "left-sidebar-menu",
         shiny::div(class = "left-sidebar-menu__links",
-          shiny::a(id="link_home", href="#home_section", "Top of Page"),
-          shiny::a(id="link_spp", href="#section_spp", "Species"),
-          shiny::a(id="link_hab", href="#section_hab", "Habitat"),
-          shiny::a(id="link_climate", href="#section_climate", "Climate"),
-          shiny::a(id="link_eservice", href="#section_eservice", "Ecosystem Services"),
-          shiny::a(id="link_pa", href="#section_pa", "Protected Areas"),
-          shiny::a(id="link_hfi", href="#section_pressures", "Pressures"),
-          shiny::a(id="link_hfi", href="#section_acknowledgments", "Details"),
-          shiny::a(id="link_hfi", href="#section_acknowledgments", "Acknowledgments"),
-          # shiny::actionLink(inputId = "link_wtw", label = "Where To Work")
+          # Themes ----
+          shiny::div(class = "sidebar-section",
+          shiny::p("Themes", class = "sidebar-section-title"),
+            shiny::a(id="link_hab", href="#habitat", "Habitat"),
+            shiny::a(id="link_spp", href="#species", "Species"),       
+          ),
+          # Weights ----
+          shiny::div(class = "sidebar-section",
+          shiny::p("Weights", class = "sidebar-section-title"),
+          shiny::a(id="link_carbon", href="#carbon", "Carbon"),
+          shiny::a(id="link_climate", href="#climate", "Climate"),
+          shiny::a(id="link_climate", href="#connectivity", "Connectivity"),
+          shiny::a(id="link_eservice", href="#eservice", "Ecosystem Services"),
+          shiny::a(id="link_hfi", href="#pressures", "Pressures")
+          ),
+          # Includes ----
+          shiny::div(class = "sidebar-section",
+          shiny::p("Includes", class = "sidebar-section-title"),
+            shiny::a(id="link_pa", href="#pa", "Protected Areas")
+          )
         )
       ),
       
@@ -64,9 +60,80 @@ app_ui <- function(request) {
           class = "main-content",
           mod_page_home_ui("home"),
           shiny::hr(),
-          mod_data_section_spp_ui("data_section_spp"),
-          mod_data_section_climate_ui("data_section_climate"),
-          mod_data_section_protected_ui("data_section_pa")
+          
+          # Data Groupings ----
+          ## Habitat
+          mod_data_group_ui(
+            id = "data_group_habitat",
+            section_id = "habitat",
+            title = "Habitat",
+            mod_data_card_ui("data_card_forest", "Forest"),
+            mod_data_card_ui("data_card_grassland", "Grassland"),
+            mod_data_card_ui("data_card_lakes", "Lakes"),
+            mod_data_card_ui("data_card_wetland", "Wetland"),
+            mod_data_card_ui("data_card_rivers", "Rivers"),
+            mod_data_card_ui("data_card_shoreline", "Shoreline")
+          ),              
+          ## Species
+          mod_data_group_ui(
+            id = "data_group_spp",
+            section_id = "species",
+            title = "Species",
+            mod_data_card_ui("data_card_ch", "ECCC SAR Critical Habitat"),
+            mod_data_card_ui("data_card_sar", "ECCC SAR Range Map Extents"),
+            mod_data_card_ui("data_card_amph", "IUCN AOH Amphibians"),
+            mod_data_card_ui("data_card_bird_s1", "IUCN AOH Birds (Resident)"),
+            mod_data_card_ui("data_card_bird_s2", "IUCN AOH Birds (Breeding)"),
+            mod_data_card_ui("data_card_bird_s3", "IUCN AOH Birds (Non-Breeding)"),
+            mod_data_card_ui("data_card_mamm", "IUCN AOH Mammals"),
+            mod_data_card_ui("data_card_rept", "IUCN AOH Reptiles")
+          ),
+          ## Carbon
+          mod_data_group_ui(
+            id = "data_group_carbon",
+            section_id = "carbon",
+            title = "Carbon",
+            mod_data_card_ui("data_card_carbon_p", "Carbon Potential"),
+            mod_data_card_ui("data_card_carbon_s", "Carbon Storage")
+          ),          
+          ## Climate
+          mod_data_group_ui(
+            id = "data_group_climate",
+            section_id = "climate",
+            title = "Climate",
+            mod_data_card_ui("data_card_climate_c", "Climate Centrality"),
+            mod_data_card_ui("data_card_climate_e", "Extreme Heat Events"),
+            mod_data_card_ui("data_card_climate_r", "Climate Refugia")
+          ),
+          ## Connectivity
+          mod_data_group_ui(
+            id = "data_group_connectivity",
+            section_id = "connectivity",
+            title = "Connectivity",
+            mod_data_card_ui("data_card_connectivity", "Connectivity")
+          ),
+          ## Ecosystem Services
+          mod_data_group_ui(
+            id = "data_group_eservice",
+            section_id = "eservice",
+            title = "Ecosystem Services",
+            mod_data_card_ui("data_card_freshw", "Freshwater Provision"),
+            mod_data_card_ui("data_card_rec", "Recreation")
+          ),
+          ## Pressures
+          mod_data_group_ui(
+            id = "data_group_pressures",
+            section_id = "pressures",
+            title = "Pressures",
+            mod_data_card_ui("data_card_hfi", "Human Foorpint Index")
+          ),
+          ## Protected Areas
+          mod_data_group_ui(
+            id = "data_group_pa",
+            section_id = "pa",
+            title = "Protected Areas",
+            mod_data_card_ui("data_card_pa", "CPCAD")
+          )
         )
         
       )
