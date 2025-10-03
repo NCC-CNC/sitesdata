@@ -10,43 +10,47 @@
 mod_data_order_ui <- function(id, product_tbl) {
   ns <- NS(id)
   
+  # Filter for active and external (public) products only
+  active_external_products <- product_tbl |>
+    dplyr::filter(active == TRUE & external == TRUE)
+  
   # Habitat
-  product_habitat <- product_tbl |>
+  product_habitat <- active_external_products |>
     dplyr::filter(category == "habitat") |>
     dplyr::pull(legend_name)
   
   # Species
-  product_species <- product_tbl |>
+  product_species <- active_external_products |>
     dplyr::filter(category == "species") |>
     dplyr::pull(legend_name)
   
   # Carbon
-  product_carbon <- product_tbl |>
+  product_carbon <- active_external_products |>
     dplyr::filter(category == "carbon") |>
     dplyr::pull(legend_name)  
   
   # Climate
-  product_climate <- product_tbl |>
+  product_climate <- active_external_products |>
     dplyr::filter(category == "climate") |>
     dplyr::pull(legend_name)
   
   # Connectivity
-  product_connectivity <- product_tbl |>
+  product_connectivity <- active_external_products |>
     dplyr::filter(category == "connectivity") |>
     dplyr::pull(legend_name)  
   
   # E-Service
-  product_eservice <- product_tbl |>
+  product_eservice <- active_external_products |>
     dplyr::filter(category == "eservice") |>
     dplyr::pull(legend_name)   
   
   # Pressures
-  product_pressures <- product_tbl |>
+  product_pressures <- active_external_products |>
     dplyr::filter(category == "pressures") |>
     dplyr::pull(legend_name)  
   
   # Protected Areas
-  product_pa <- product_tbl |>
+  product_pa <- active_external_products |>
     dplyr::filter(category == "protected") |>
     dplyr::pull(legend_name)  
   

@@ -25,6 +25,13 @@
   margin-bottom: 10px;
 }
 
+/* Data order groups */
+.vscomp-option.group-title .vscomp-option-text{
+  opacity: 1;
+  font-weight: 700;
+  color: black;
+}
+
 /* confrim-submit modal */
 .modal-header {
   margin-bottom: -45px !important;
